@@ -575,12 +575,12 @@ export default function HomePage() {
                 <div className="relative text-center">
                   <p className="mb-2 text-xs font-mono tracking-[0.3em] uppercase" style={{ color: "#7c3aed" }}>Open Source</p>
                   <h3 className="mb-6 text-3xl font-bold tracking-tight" style={{ color: "#0f172a" }}>{project.title}</h3>
-                  <div className="mb-6 flex justify-center gap-12">
+                  <div className="mb-6 flex flex-col items-center gap-6 sm:flex-row sm:justify-center sm:gap-12">
                     <div>
                       <p className="text-5xl font-bold tracking-tight" style={{ color: "#4c1d95" }}>12,000+</p>
                       <p className="text-sm mt-2 font-medium" style={{ color: "#64748b" }}>GitHub 获星数 ★</p>
                     </div>
-                    <div style={{ width: 1, background: "rgba(0,0,0,0.08)" }} />
+                    <div className="hidden sm:block" style={{ width: 1, height: 60, background: "rgba(0,0,0,0.08)" }} />
                     <div>
                       <p className="text-5xl font-bold tracking-tight" style={{ color: "#1e40af" }}>500+</p>
                       <p className="text-sm mt-2 font-medium" style={{ color: "#64748b" }}>{lang === "zh" ? "社区活跃用户数" : "Community Users"}</p>
