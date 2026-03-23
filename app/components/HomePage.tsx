@@ -4,7 +4,7 @@ type Lang = "en" | "zh";
 
 const content = {
   en: {
-    nav: { about: "About", timeline: "Timeline", projects: "Projects", openSource: "Open Source" },
+    nav: { about: "About", timeline: "Timeline", openSource: "Open Source" },
     timeline: { label: "EXPERIENCE", heading: "Timeline" },
     hero: {
       badge: "Algorithm Engineer",
@@ -32,7 +32,6 @@ const content = {
         "I'm also passionate about diving into open-source projects — from foundational frameworks to cutting-edge models — drawing inspiration from source code and applying it to real-world engineering.",
       ],
     },
-    projects: { label: "SELECTED WORK", heading: "Projects" },
     openSource: { label: "OPEN SOURCE", heading: "Open Source & Community" },
     footer: {
       built: "Built with Next.js & Tailwind CSS.",
@@ -41,7 +40,7 @@ const content = {
     toggleLabel: "中文",
   },
   zh: {
-    nav: { about: "关于我", timeline: "经历", projects: "项目", openSource: "开源" },
+    nav: { about: "关于我", timeline: "经历", openSource: "开源" },
     timeline: { label: "EXPERIENCE", heading: "经历" },
     hero: {
       badge: "算法工程师",
@@ -70,7 +69,6 @@ const content = {
         "此外，我非常热衷于研究各类开源项目，从底层框架到前沿模型，乐于从源码中汲取灵感并将其应用于实际工程。",
       ],
     },
-    projects: { label: "SELECTED WORK", heading: "项目经验" },
     openSource: { label: "OPEN SOURCE", heading: "开源与社区" },
     footer: {
       built: "基于 Next.js & Tailwind CSS 构建。",
@@ -81,60 +79,6 @@ const content = {
 };
 
 
-const projects = {
-  en: [
-    {
-      title: "LLM Post-Training Pipeline",
-      description:
-        "Designed and implemented an end-to-end post-training pipeline covering SFT, reward modeling, and RLHF/DPO alignment, significantly improving model instruction-following quality.",
-      tags: ["Python", "PyTorch", "RLHF", "DPO", "DeepSpeed"],
-    },
-    {
-      title: "High-Throughput LLM Inference Service",
-      description:
-        "Built a distributed LLM serving system based on vLLM, supporting thousands of concurrent requests with dynamic batching and multi-node tensor parallelism.",
-      tags: ["vLLM", "CUDA", "Kubernetes", "Python", "gRPC"],
-    },
-    {
-      title: "Multi-Agent Orchestration Framework",
-      description:
-        "Developed a multi-agent system supporting tool calling, long-horizon task planning, and reflection loops, enabling complex workflows to run autonomously end-to-end.",
-      tags: ["LangChain", "MCP", "RAG", "Tool Use", "Python"],
-    },
-    {
-      title: "Distributed Task Scheduling System",
-      description:
-        "Architected a high-concurrency task scheduling system capable of handling millions of jobs per day, with fault tolerance, priority queues, and real-time observability.",
-      tags: ["Go", "Kafka", "Redis", "Kubernetes", "gRPC"],
-    },
-  ],
-  zh: [
-    {
-      title: "大模型后训练流水线",
-      description:
-        "设计并实现覆盖 SFT、奖励建模、RLHF/DPO 对齐的端到端后训练流水线，显著提升模型指令跟随能力与输出质量。",
-      tags: ["Python", "PyTorch", "RLHF", "DPO", "DeepSpeed"],
-    },
-    {
-      title: "高吞吐 LLM 推理服务",
-      description:
-        "基于 vLLM 构建分布式大模型推理服务，支持千级并发请求，实现动态批处理与多节点张量并行，大幅降低推理延迟与成本。",
-      tags: ["vLLM", "CUDA", "Kubernetes", "Python", "gRPC"],
-    },
-    {
-      title: "多智能体编排框架",
-      description:
-        "开发支持工具调用、长程任务规划与反思循环的多 Agent 系统，使复杂工作流能够端到端自主完成，无需人工干预。",
-      tags: ["LangChain", "MCP", "RAG", "工具调用", "Python"],
-    },
-    {
-      title: "高并发分布式任务调度系统",
-      description:
-        "设计日处理百万级任务的高并发调度系统，具备容错机制、优先级队列与实时可观测性，系统可用性达 99.9%。",
-      tags: ["Go", "Kafka", "Redis", "Kubernetes", "gRPC"],
-    },
-  ],
-};
 
 const openSource = {
   en: [
@@ -313,7 +257,6 @@ function SectionHeading({
 export default function HomePage() {
   const lang: Lang = "zh";
   const t = content[lang];
-  const projectList = projects[lang];
   const openSourceList = openSource[lang];
 
   const surfaceStyle = {
@@ -364,7 +307,6 @@ export default function HomePage() {
         <div className="flex items-center gap-5">
           <div className="flex gap-6 text-sm font-medium" style={{ color: "#000000" }}>
             <a href="#timeline" className="hover:text-slate-900 transition-colors">{t.nav.timeline}</a>
-<a href="#projects" className="hover:text-slate-900 transition-colors">{t.nav.projects}</a>
             <a href="#open-source" className="hover:text-slate-900 transition-colors">{t.nav.openSource}</a>
           </div>
           {/* Language Toggle — temporarily hidden, English content preserved */}
@@ -519,35 +461,6 @@ export default function HomePage() {
                 </div>
               );
             })}
-          </div>
-        </section>
-
-        {/* ── Skills ── */}
-        {/* ── Projects ── */}
-        <section id="projects" className="max-w-4xl mx-auto px-8 py-24">
-          <SectionHeading label={t.projects.label} heading={t.projects.heading} />
-          <div className="grid sm:grid-cols-2 gap-5">
-            {projectList.map((project) => (
-              <div
-                key={project.title}
-                className="rounded-2xl p-6 flex flex-col gap-4"
-                style={surfaceStyle}
-              >
-                <h3 className="font-semibold text-base leading-snug" style={{ color: "#000000" }}>{project.title}</h3>
-                <p className="text-base font-medium leading-relaxed flex-1" style={{ color: "#000000" }}>{project.description}</p>
-                <div className="flex flex-wrap gap-2 pt-1">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2.5 py-1 rounded text-sm font-mono font-medium"
-                      style={{ background: "rgba(8,145,178,0.08)", color: "#000000", border: "1px solid rgba(8,145,178,0.16)" }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
           </div>
         </section>
 
