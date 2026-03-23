@@ -560,31 +560,33 @@ export default function HomePage() {
                 key={project.title}
                 className="rounded-2xl px-8 py-10"
                 style={{
-                  background: "linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%)",
+                  background: "linear-gradient(135deg, #ede9fe 0%, #dbeafe 50%, #dcfce7 100%)",
+                  border: "2px solid rgba(109,40,217,0.5)",
+                  boxShadow: "0 8px 40px rgba(109,40,217,0.18), 0 2px 8px rgba(0,0,0,0.1)",
                   position: "relative",
                   overflow: "hidden",
                 }}
               >
                 {/* 背景光晕 */}
                 <div className="pointer-events-none absolute inset-0">
-                  <div className="absolute left-[-10%] top-[-20%] h-64 w-64 rounded-full blur-3xl" style={{ background: "rgba(129,140,248,0.15)" }} />
-                  <div className="absolute right-[-5%] bottom-[-10%] h-56 w-56 rounded-full blur-3xl" style={{ background: "rgba(34,211,238,0.1)" }} />
+                  <div className="absolute left-[-10%] top-[-20%] h-64 w-64 rounded-full blur-3xl" style={{ background: "rgba(139,92,246,0.08)" }} />
+                  <div className="absolute right-[-5%] bottom-[-10%] h-56 w-56 rounded-full blur-3xl" style={{ background: "rgba(59,130,246,0.07)" }} />
                 </div>
                 <div className="relative text-center">
-                  <p className="mb-2 text-xs font-mono tracking-[0.3em] uppercase" style={{ color: "rgba(165,180,252,0.7)" }}>Open Source</p>
-                  <h3 className="mb-4 text-3xl font-bold tracking-tight" style={{ color: "#ffffff" }}>{project.title}</h3>
-                  <div className="mb-6 flex justify-center gap-8">
+                  <p className="mb-2 text-xs font-mono tracking-[0.3em] uppercase" style={{ color: "#7c3aed" }}>Open Source</p>
+                  <h3 className="mb-6 text-3xl font-bold tracking-tight" style={{ color: "#0f172a" }}>{project.title}</h3>
+                  <div className="mb-6 flex justify-center gap-12">
                     <div>
-                      <p className="text-4xl font-bold" style={{ color: "#a5b4fc" }}>12,000+</p>
-                      <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>GitHub 获星数 ★</p>
+                      <p className="text-5xl font-bold tracking-tight" style={{ color: "#4c1d95" }}>12,000+</p>
+                      <p className="text-sm mt-2 font-medium" style={{ color: "#64748b" }}>GitHub 获星数 ★</p>
                     </div>
-                    <div style={{ width: 1, background: "rgba(255,255,255,0.1)" }} />
+                    <div style={{ width: 1, background: "rgba(0,0,0,0.08)" }} />
                     <div>
-                      <p className="text-4xl font-bold" style={{ color: "#67e8f9" }}>500+</p>
-                      <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>{lang === "zh" ? "社区活跃用户数" : "Community Users"}</p>
+                      <p className="text-5xl font-bold tracking-tight" style={{ color: "#1e40af" }}>500+</p>
+                      <p className="text-sm mt-2 font-medium" style={{ color: "#64748b" }}>{lang === "zh" ? "社区活跃用户数" : "Community Users"}</p>
                     </div>
                   </div>
-                  <p className="mx-auto mb-6 max-w-xl text-base font-medium leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>
+                  <p className="mx-auto mb-8 max-w-xl text-base font-medium leading-relaxed" style={{ color: "#475569" }}>
                     {project.description}
                   </p>
                   <a
@@ -592,7 +594,7 @@ export default function HomePage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all hover:scale-105"
-                    style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", color: "#ffffff" }}
+                    style={{ background: "#0f172a", border: "1px solid #0f172a", color: "#ffffff" }}
                   >
                     <GitHubIcon />
                     {lang === "zh" ? "查看项目" : "View on GitHub"}
