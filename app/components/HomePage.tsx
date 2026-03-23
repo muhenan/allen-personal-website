@@ -503,22 +503,22 @@ export default function HomePage() {
                               style={{ background: group.color, outline: `2px solid ${group.color}`, outlineOffset: "3px" }} />
                           </div>
                           <div className="flex-1 pb-2">
-                            <div className="flex items-start justify-between gap-4 mb-2">
-                              <div>
-                                <span className="text-sm font-mono font-medium mb-1 block" style={{ color: "#000000" }}>{item.date}</span>
-                                <p className="font-bold text-base mb-0.5" style={{ color: "#000000" }}>{item.org}</p>
-                                <p className="text-sm font-medium" style={{ color: "#000000" }}>{item.role}</p>
-                              </div>
+                            <div className="flex items-start gap-4">
                               <img
                                 src={item.logo}
                                 alt={item.org}
                                 className="flex-shrink-0 rounded-xl object-cover"
                                 style={{ width: 72, height: 72, border: "1px solid rgba(0,0,0,0.08)" }}
                               />
+                              <div className="flex-1">
+                                <span className="text-sm font-mono font-medium mb-1 block" style={{ color: "#000000" }}>{item.date}</span>
+                                <p className="font-bold text-base mb-0.5" style={{ color: "#000000" }}>{item.org}</p>
+                                <p className="text-sm font-medium mb-3" style={{ color: "#000000" }}>{item.role}</p>
+                                {item.desc && (
+                                  <p className="text-base font-medium leading-relaxed" style={{ color: "#000000" }}>{item.desc}</p>
+                                )}
+                              </div>
                             </div>
-                            {item.desc && (
-                              <p className="text-base font-medium leading-relaxed mt-3" style={{ color: "#000000" }}>{item.desc}</p>
-                            )}
                           </div>
                         </div>
                       ))}
