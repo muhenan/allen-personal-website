@@ -8,24 +8,30 @@ const content = {
   en: {
     nav: { about: "About", skills: "Skills", projects: "Projects" },
     hero: {
-      badge: "Software Engineer",
+      badge: "Algorithm Engineer",
       greeting: "Hi, I'm",
       slogan:
-        "Building reliable backend systems and exploring the frontier of AI — from LLMs to deep learning, I love turning complex ideas into clean, working software.",
+        "Focused on LLM post-training, AI infrastructure, and Agent systems — I thrive at the intersection of cutting-edge research and high-scale engineering.",
     },
     about: {
       heading: "// About",
       left: (
         <>
-          I&apos;m a software engineer based in{" "}
-          <span style={{ color: "#f1f5f9", fontWeight: 500 }}>Boston, MA</span>, currently working on
-          backend systems and internal tooling. I hold a{" "}
-          <span style={{ color: "#f1f5f9", fontWeight: 500 }}>Master&apos;s degree from Northwestern University</span>,
-          where I deepened my focus on software engineering and applied machine learning.
+          B.Eng. in Software Engineering from{" "}
+          <span style={{ color: "#f1f5f9", fontWeight: 500 }}>Sun Yat-sen University</span>, M.S. in Software Engineering from{" "}
+          <span style={{ color: "#f1f5f9", fontWeight: 500 }}>Northeastern University (US)</span>.
+          Currently Algorithm Engineer at{" "}
+          <span style={{ color: "#f1f5f9", fontWeight: 500 }}>Wayfair</span>{" "}
+          <span style={{ color: "#64748b", fontSize: "0.85em" }}>NYSE: W</span>.
+          Previously interned at{" "}
+          <span style={{ color: "#f1f5f9", fontWeight: 500 }}>ByteDance</span>, audio &amp; video team of Toutiao.
         </>
       ),
-      right:
-        "Outside of work I experiment with LLMs, contribute to open-source projects, and explore the intersection of classical software engineering with modern AI. I believe great software is readable, testable, and quietly reliable.",
+      right: [
+        "My current work focuses on large language model post-training, AI infrastructure, and the design and deployment of Agent systems at scale.",
+        "I also work on the architecture and development of high-concurrency distributed systems.",
+        "I'm also passionate about diving into open-source projects — from foundational frameworks to cutting-edge models — drawing inspiration from source code and applying it to real-world engineering.",
+      ],
     },
     skills: { heading: "// Skills" },
     projects: { heading: "// Projects" },
@@ -38,24 +44,31 @@ const content = {
   zh: {
     nav: { about: "关于我", skills: "技能", projects: "项目" },
     hero: {
-      badge: "软件工程师",
+      badge: "算法工程师",
       greeting: "你好，我是",
       slogan:
-        "专注于构建可靠的后端系统，同时探索 AI 前沿 —— 从大语言模型到深度学习，我热衷于将复杂想法转化为简洁、可运行的软件。",
+        "专注于大模型后训练、AI Infra 与 Agent 系统构建 —— 在前沿研究与大规模工程落地的交汇处深耕。",
     },
     about: {
       heading: "// 关于我",
       left: (
         <>
-          我是一名居住在{" "}
-          <span style={{ color: "#f1f5f9", fontWeight: 500 }}>美国波士顿</span> 的软件工程师，
-          目前专注于后端系统与内部工具的开发。我毕业于{" "}
-          <span style={{ color: "#f1f5f9", fontWeight: 500 }}>西北大学（Northwestern University）</span>，
-          获得硕士学位，研究方向为软件工程与应用机器学习。
+          本科就读于{" "}
+          <span style={{ color: "#f1f5f9", fontWeight: 500 }}>中山大学</span>，硕士就读于{" "}
+          <span style={{ color: "#f1f5f9", fontWeight: 500 }}>美国东北大学（Northeastern University）</span>，均为软件工程专业。
+          现任{" "}
+          <span style={{ color: "#f1f5f9", fontWeight: 500 }}>Wayfair</span>{" "}
+          <span style={{ color: "#64748b", fontSize: "0.85em" }}>NYSE: W</span>{" "}
+          算法工程师。曾于{" "}
+          <span style={{ color: "#f1f5f9", fontWeight: 500 }}>字节跳动</span>
+          实习，今日头条音视频组。
         </>
       ),
-      right:
-        "工作之外，我热衷于探索大语言模型、参与开源项目，以及研究传统软件工程与现代 AI 的结合点。我相信优秀的软件应该具备可读性、可测试性，并在生产环境中静默而可靠地运行。",
+      right: [
+        "目前工作聚焦于大语言模型后训练、AI 基础设施建设以及 Agent 系统的设计与落地。",
+        "同时也负责公司高并发分布式系统的架构设计与开发。",
+        "此外，我非常热衷于研究各类开源项目，从底层框架到前沿模型，乐于从源码中汲取灵感并将其应用于实际工程。",
+      ],
     },
     skills: { heading: "// 技能栈" },
     projects: { heading: "// 项目经验" },
@@ -69,70 +82,70 @@ const content = {
 
 const skills = {
   en: [
-    { category: "Backend", icon: "⚙️", items: ["C#", ".NET", "Python", "SQL", "REST APIs"] },
-    { category: "Frontend", icon: "🖥️", items: ["React", "Next.js", "TypeScript", "Tailwind CSS"] },
-    { category: "AI / ML", icon: "🧠", items: ["PyTorch", "LLMs", "RAG", "Deep Learning", "Prompt Engineering"] },
-    { category: "Infrastructure", icon: "☁️", items: ["Docker", "Azure", "PostgreSQL", "Redis", "CI/CD"] },
+    { category: "LLM Training", icon: "🎯", items: ["SFT", "RLHF", "DPO", "GRPO", "Vocab Optimization"] },
+    { category: "AI Infra", icon: "⚡", items: ["CUDA", "vLLM", "DeepSpeed", "FSDP", "SGLang"] },
+    { category: "Agent Systems", icon: "🤖", items: ["LangChain/LangGraph", "RAG", "Tool Calling", "Multi-Agent", "MCP", "Context Management"] },
+    { category: "Distributed Systems", icon: "🌐", items: ["Python", "Go", "Kafka", "Redis", "Kubernetes", "Terraform", "SQL"] },
   ],
   zh: [
-    { category: "后端", icon: "⚙️", items: ["C#", ".NET", "Python", "SQL", "REST API"] },
-    { category: "前端", icon: "🖥️", items: ["React", "Next.js", "TypeScript", "Tailwind CSS"] },
-    { category: "AI / 机器学习", icon: "🧠", items: ["PyTorch", "大语言模型", "RAG", "深度学习", "Prompt 工程"] },
-    { category: "基础设施", icon: "☁️", items: ["Docker", "Azure", "PostgreSQL", "Redis", "CI/CD"] },
+    { category: "大模型训练", icon: "🎯", items: ["SFT", "RLHF", "DPO", "GRPO", "预训练词表优化"] },
+    { category: "AI Infra", icon: "⚡", items: ["CUDA", "vLLM", "DeepSpeed", "FSDP", "SGLang"] },
+    { category: "Agent 系统", icon: "🤖", items: ["LangChain/LangGraph", "RAG", "Tool Calling", "多智能体", "MCP", "上下文管理"] },
+    { category: "高并发分布式", icon: "🌐", items: ["Python", "Go", "Kafka", "Redis", "Kubernetes", "Terraform", "SQL"] },
   ],
 };
 
 const projects = {
   en: [
     {
-      title: "Order Processing System Optimization",
+      title: "LLM Post-Training Pipeline",
       description:
-        "Re-architected a high-throughput order pipeline reducing average latency by 40%. Introduced async processing and distributed caching with Redis.",
-      tags: ["C#", ".NET", "Redis", "SQL Server"],
+        "Designed and implemented an end-to-end post-training pipeline covering SFT, reward modeling, and RLHF/DPO alignment, significantly improving model instruction-following quality.",
+      tags: ["Python", "PyTorch", "RLHF", "DPO", "DeepSpeed"],
     },
     {
-      title: "Legacy Service Migration",
+      title: "High-Throughput LLM Inference Service",
       description:
-        "Led migration of a monolithic legacy service to a modern microservices architecture, improving deployment frequency and reducing on-call incidents.",
-      tags: ["Python", "Docker", "Azure", "REST APIs"],
+        "Built a distributed LLM serving system based on vLLM, supporting thousands of concurrent requests with dynamic batching and multi-node tensor parallelism.",
+      tags: ["vLLM", "CUDA", "Kubernetes", "Python", "gRPC"],
     },
     {
-      title: "AI-Powered Document Q&A",
+      title: "Multi-Agent Orchestration Framework",
       description:
-        "Built an internal RAG system that lets engineers query internal documentation using natural language, powered by LLMs and vector search.",
-      tags: ["Python", "LLMs", "RAG", "Next.js"],
+        "Developed a multi-agent system supporting tool calling, long-horizon task planning, and reflection loops, enabling complex workflows to run autonomously end-to-end.",
+      tags: ["LangChain", "MCP", "RAG", "Tool Use", "Python"],
     },
     {
-      title: "Real-time Analytics Dashboard",
+      title: "Distributed Task Scheduling System",
       description:
-        "Developed a live metrics dashboard for business stakeholders, pulling data from multiple sources with sub-second refresh via WebSockets.",
-      tags: ["React", "TypeScript", "WebSocket", "PostgreSQL"],
+        "Architected a high-concurrency task scheduling system capable of handling millions of jobs per day, with fault tolerance, priority queues, and real-time observability.",
+      tags: ["Go", "Kafka", "Redis", "Kubernetes", "gRPC"],
     },
   ],
   zh: [
     {
-      title: "订单处理系统优化",
+      title: "大模型后训练流水线",
       description:
-        "对高并发订单处理管道进行重构，平均延迟降低 40%。引入异步处理机制并基于 Redis 实现分布式缓存。",
-      tags: ["C#", ".NET", "Redis", "SQL Server"],
+        "设计并实现覆盖 SFT、奖励建模、RLHF/DPO 对齐的端到端后训练流水线，显著提升模型指令跟随能力与输出质量。",
+      tags: ["Python", "PyTorch", "RLHF", "DPO", "DeepSpeed"],
     },
     {
-      title: "旧系统服务迁移",
+      title: "高吞吐 LLM 推理服务",
       description:
-        "主导将单体旧服务迁移至现代微服务架构，显著提升部署频率并减少线上告警事件。",
-      tags: ["Python", "Docker", "Azure", "REST API"],
+        "基于 vLLM 构建分布式大模型推理服务，支持千级并发请求，实现动态批处理与多节点张量并行，大幅降低推理延迟与成本。",
+      tags: ["vLLM", "CUDA", "Kubernetes", "Python", "gRPC"],
     },
     {
-      title: "AI 驱动的文档问答系统",
+      title: "多智能体编排框架",
       description:
-        "构建内部 RAG 系统，使工程师可用自然语言检索内部文档，底层基于大语言模型与向量搜索。",
-      tags: ["Python", "大语言模型", "RAG", "Next.js"],
+        "开发支持工具调用、长程任务规划与反思循环的多 Agent 系统，使复杂工作流能够端到端自主完成，无需人工干预。",
+      tags: ["LangChain", "MCP", "RAG", "工具调用", "Python"],
     },
     {
-      title: "实时数据分析看板",
+      title: "高并发分布式任务调度系统",
       description:
-        "为业务团队开发实时指标看板，通过 WebSocket 聚合多数据源，实现亚秒级刷新。",
-      tags: ["React", "TypeScript", "WebSocket", "PostgreSQL"],
+        "设计日处理百万级任务的高并发调度系统，具备容错机制、优先级队列与实时可观测性，系统可用性达 99.9%。",
+      tags: ["Go", "Kafka", "Redis", "Kubernetes", "gRPC"],
     },
   ],
 };
@@ -206,7 +219,7 @@ export default function HomePage() {
           </p>
           <div className="animate-fade-in-up delay-400 flex gap-4">
             <a
-              href="https://github.com"
+              href="https://github.com/muhenan"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all hover:scale-105"
@@ -216,7 +229,7 @@ export default function HomePage() {
               GitHub
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/henan-mu-519b6624b/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all hover:scale-105"
@@ -235,7 +248,11 @@ export default function HomePage() {
           </h2>
           <div className="grid sm:grid-cols-2 gap-8">
             <p className="text-base leading-relaxed" style={{ color: "#cbd5e1" }}>{t.about.left}</p>
-            <p className="text-base leading-relaxed" style={{ color: "#cbd5e1" }}>{t.about.right}</p>
+            <div className="flex flex-col gap-4">
+              {t.about.right.map((para, i) => (
+                <p key={i} className="text-base leading-relaxed" style={{ color: "#cbd5e1" }}>{para}</p>
+              ))}
+            </div>
           </div>
         </section>
 
