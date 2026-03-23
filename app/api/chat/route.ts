@@ -1,22 +1,7 @@
 import OpenAI from "openai";
 import { NextRequest } from "next/server";
 
-export async function POST(req: NextRequest) {
-  const apiKey = process.env.OPENAI_API;
-
-  if (!apiKey) {
-    return Response.json({ error: "API key not configured" }, { status: 500 });
-  }
-
-  const { message } = await req.json();
-
-  if (!message || typeof message !== "string") {
-    return Response.json({ error: "Invalid message" }, { status: 400 });
-  }
-
-  const client = new OpenAI({ apiKey });
-
-  const systemPrompt = `你是 Allen（母贺楠）的个人网站 AI 助手。你的主要任务是帮助访客了解 Allen 的教育背景、工作经历和开源项目。请用中文回答，语气友好、专业、简洁。如果被问到与 Allen 无关的话题，礼貌地引导回到 Allen 的相关信息。
+const systemPrompt = `你是 Allen（母贺楠）的个人网站 AI 助手。你的主要任务是帮助访客了解 Allen 的教育背景、工作经历和开源项目。请用中文回答，语气友好、专业、简洁。如果被问到与 Allen 无关的话题，礼貌地引导回到 Allen 的相关信息。
 
 以下是 Allen 的完整简历信息：
 
@@ -65,8 +50,33 @@ LinkedIn：https://www.linkedin.com/in/henan-mu-519b6624b/
 - xiaohongshu-mcp：构建小红书 AI Agent，基于 MCP 协议实现小红书账号的全自动运营（内容生成、发布、互动等端到端工作流）。GitHub 获星超 12,000，社区活跃用户超 500 人。
   链接：https://github.com/xpzouying/xiaohongshu-mcp`;
 
+export async function POST(req: NextRequest) {
+  const { message, model } = await req.json();
+
+  if (!message || typeof message !== "string") {
+    return Response.json({ error: "Invalid message" }, { status: 400 });
+  }
+
+  let client: OpenAI;
+  let modelId: string;
+
+  if (model === "deepseek") {
+    const apiKey = process.env.VOLCES_API_KEY;
+    if (!apiKey) return Response.json({ error: "DeepSeek API key not configured" }, { status: 500 });
+    client = new OpenAI({
+      apiKey,
+      baseURL: "https://ark.cn-beijing.volces.com/api/v3",
+    });
+    modelId = "deepseek-v3-2-251201";
+  } else {
+    const apiKey = process.env.OPENAI_API;
+    if (!apiKey) return Response.json({ error: "OpenAI API key not configured" }, { status: 500 });
+    client = new OpenAI({ apiKey });
+    modelId = "gpt-5-mini";
+  }
+
   const stream = await client.chat.completions.create({
-    model: "gpt-5-mini",
+    model: modelId,
     messages: [
       { role: "system", content: systemPrompt },
       { role: "user", content: message },
