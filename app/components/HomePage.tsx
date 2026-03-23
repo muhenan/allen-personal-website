@@ -205,7 +205,7 @@ const timeline: Record<Lang, TimelineItem[]> = {
   ],
   zh: [
     {
-      date: "2018.09",
+      date: "2018.09 – 2022.06",
       org: "中山大学",
       role: "本科 · 软件工程 · GPA 3.8/4.0",
       desc: "",
@@ -219,8 +219,8 @@ const timeline: Record<Lang, TimelineItem[]> = {
       type: "work",
     },
     {
-      date: "2022.09",
-      org: "美国东北大学",
+      date: "2022.09 – 2024.05",
+      org: "美国东北大学（Northeastern University）",
       role: "硕士 · 软件工程 · GPA 4.0/4.0",
       desc: "",
       type: "edu",
@@ -278,7 +278,7 @@ export default function HomePage() {
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4"
         style={{ background: "rgba(248,250,252,0.88)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(0,0,0,0.07)" }}
       >
-        <span className="font-mono text-sm font-bold" style={{ color: "#0891b2" }}>allen.dev</span>
+        <span className="font-mono text-sm font-bold" style={{ color: "#164e63" }}>allen.dev</span>
         <div className="flex items-center gap-5">
           <div className="flex gap-6 text-sm" style={{ color: "#64748b" }}>
             <a href="#timeline" className="hover:text-slate-900 transition-colors">{t.nav.timeline}</a>
@@ -304,12 +304,9 @@ export default function HomePage() {
       <main>
         {/* ── Hero ── */}
         <section className="flex flex-col items-center justify-center text-center px-6 pt-40 pb-32">
-          <p className="animate-fade-in-up delay-100 mb-5 font-mono text-base tracking-widest uppercase" style={{ color: "#0891b2" }}>
-            {t.hero.badge}
-          </p>
-          <h1 className="animate-fade-in-up delay-200 text-6xl sm:text-8xl font-bold tracking-tight mb-8" style={{ color: "#0f172a" }}>
+          <h1 className="animate-fade-in-up delay-100 text-6xl sm:text-8xl font-bold tracking-tight mb-8" style={{ color: "#0f172a" }}>
             {t.hero.greeting}{" "}
-            <span style={{ background: "linear-gradient(135deg, #0891b2, #7c3aed)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+            <span style={{ background: "linear-gradient(135deg, #164e63, #4c1d95)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
               Allen
             </span>
           </h1>
@@ -349,14 +346,14 @@ export default function HomePage() {
             {(
               lang === "zh"
                 ? [
-                    { label: "工作经历", type: "work", color: "#0891b2" },
-                    { label: "教育背景", type: "edu", color: "#7c3aed" },
-                    { label: "开源项目", type: "open", color: "#059669" },
+                    { label: "工作经历", type: "work", color: "#164e63" },
+                    { label: "教育背景", type: "edu", color: "#4c1d95" },
+                    { label: "开源项目", type: "open", color: "#064e3b" },
                   ]
                 : [
-                    { label: "Experience", type: "work", color: "#0891b2" },
-                    { label: "Education", type: "edu", color: "#7c3aed" },
-                    { label: "Open Source", type: "open", color: "#059669" },
+                    { label: "Experience", type: "work", color: "#164e63" },
+                    { label: "Education", type: "edu", color: "#4c1d95" },
+                    { label: "Open Source", type: "open", color: "#064e3b" },
                   ]
             ).map((group) => {
               const items = timeline[lang].filter((item) => item.type === group.type).reverse();
@@ -375,7 +372,7 @@ export default function HomePage() {
                           <div className="flex-1 pb-2">
                             <span className="text-sm font-mono mb-1.5 block" style={{ color: group.color }}>{item.date}</span>
                             <p className="font-bold text-base mb-1" style={{ color: "#0f172a" }}>{item.org}</p>
-                            <p className="text-sm mb-3" style={{ color: "#94a3b8" }}>{item.role}</p>
+                            <p className="text-sm mb-3" style={{ color: "#64748b" }}>{item.role}</p>
                             {item.desc && (
                               <p className="text-base leading-relaxed" style={{ color: "#475569" }}>{item.desc}</p>
                             )}
@@ -411,7 +408,7 @@ export default function HomePage() {
                     <span
                       key={item}
                       className="px-3 py-1 rounded-full text-sm font-mono"
-                      style={{ background: "rgba(124,58,237,0.08)", color: "#7c3aed", border: "1px solid rgba(124,58,237,0.2)" }}
+                      style={{ background: "rgba(124,58,237,0.08)", color: "#4c1d95", border: "1px solid rgba(124,58,237,0.2)" }}
                     >
                       {item}
                     </span>
@@ -441,7 +438,7 @@ export default function HomePage() {
                     <span
                       key={tag}
                       className="px-2.5 py-1 rounded text-sm font-mono"
-                      style={{ background: "rgba(8,145,178,0.08)", color: "#0891b2", border: "1px solid rgba(8,145,178,0.2)" }}
+                      style={{ background: "rgba(8,145,178,0.08)", color: "#164e63", border: "1px solid rgba(8,145,178,0.2)" }}
                     >
                       {tag}
                     </span>
@@ -460,7 +457,7 @@ export default function HomePage() {
         </p>
         <p className="text-sm mt-1" style={{ color: "#94a3b8" }}>
           {t.footer.reach}{" "}
-          <a href="mailto:allen@example.com" className="transition-colors hover:text-cyan-600" style={{ color: "#0891b2" }}>
+          <a href="mailto:allen@example.com" className="transition-colors hover:text-cyan-600" style={{ color: "#164e63" }}>
             allen@example.com
           </a>
         </p>
