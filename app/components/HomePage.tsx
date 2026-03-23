@@ -4,7 +4,7 @@ type Lang = "en" | "zh";
 
 const content = {
   en: {
-    nav: { about: "About", timeline: "Timeline", skills: "Skills", projects: "Projects", openSource: "Open Source" },
+    nav: { about: "About", timeline: "Timeline", projects: "Projects", openSource: "Open Source" },
     timeline: { label: "EXPERIENCE", heading: "Timeline" },
     hero: {
       badge: "Algorithm Engineer",
@@ -32,7 +32,6 @@ const content = {
         "I'm also passionate about diving into open-source projects — from foundational frameworks to cutting-edge models — drawing inspiration from source code and applying it to real-world engineering.",
       ],
     },
-    skills: { label: "CAPABILITIES", heading: "Skills" },
     projects: { label: "SELECTED WORK", heading: "Projects" },
     openSource: { label: "OPEN SOURCE", heading: "Open Source & Community" },
     footer: {
@@ -42,7 +41,7 @@ const content = {
     toggleLabel: "中文",
   },
   zh: {
-    nav: { about: "关于我", timeline: "经历", skills: "技能", projects: "项目", openSource: "开源" },
+    nav: { about: "关于我", timeline: "经历", projects: "项目", openSource: "开源" },
     timeline: { label: "EXPERIENCE", heading: "经历" },
     hero: {
       badge: "算法工程师",
@@ -71,7 +70,6 @@ const content = {
         "此外，我非常热衷于研究各类开源项目，从底层框架到前沿模型，乐于从源码中汲取灵感并将其应用于实际工程。",
       ],
     },
-    skills: { label: "CAPABILITIES", heading: "技能栈" },
     projects: { label: "SELECTED WORK", heading: "项目经验" },
     openSource: { label: "OPEN SOURCE", heading: "开源与社区" },
     footer: {
@@ -82,20 +80,6 @@ const content = {
   },
 };
 
-const skills = {
-  en: [
-    { category: "LLM Training", icon: "🎯", items: ["SFT", "RLHF", "DPO", "GRPO", "Vocab Optimization"] },
-    { category: "AI Infra", icon: "⚡", items: ["CUDA", "vLLM", "DeepSpeed", "FSDP", "SGLang"] },
-    { category: "Agent Systems", icon: "🤖", items: ["LangChain/LangGraph", "RAG", "Tool Calling", "Multi-Agent", "MCP", "Context Management"] },
-    { category: "Distributed Systems", icon: "🌐", items: ["Python", "Go", "Kafka", "Redis", "Kubernetes", "Terraform", "SQL"] },
-  ],
-  zh: [
-    { category: "大模型训练", icon: "🎯", items: ["SFT", "RLHF", "DPO", "GRPO", "预训练词表优化"] },
-    { category: "AI Infra", icon: "⚡", items: ["CUDA", "vLLM", "DeepSpeed", "FSDP", "SGLang"] },
-    { category: "Agent 系统", icon: "🤖", items: ["LangChain/LangGraph", "RAG", "Tool Calling", "多智能体", "MCP", "上下文管理"] },
-    { category: "高并发分布式", icon: "🌐", items: ["Python", "Go", "Kafka", "Redis", "Kubernetes", "Terraform", "SQL"] },
-  ],
-};
 
 const projects = {
   en: [
@@ -329,7 +313,6 @@ function SectionHeading({
 export default function HomePage() {
   const lang: Lang = "zh";
   const t = content[lang];
-  const skillList = skills[lang];
   const projectList = projects[lang];
   const openSourceList = openSource[lang];
 
@@ -381,8 +364,7 @@ export default function HomePage() {
         <div className="flex items-center gap-5">
           <div className="flex gap-6 text-sm font-medium" style={{ color: "#000000" }}>
             <a href="#timeline" className="hover:text-slate-900 transition-colors">{t.nav.timeline}</a>
-            <a href="#skills" className="hover:text-slate-900 transition-colors">{t.nav.skills}</a>
-            <a href="#projects" className="hover:text-slate-900 transition-colors">{t.nav.projects}</a>
+<a href="#projects" className="hover:text-slate-900 transition-colors">{t.nav.projects}</a>
             <a href="#open-source" className="hover:text-slate-900 transition-colors">{t.nav.openSource}</a>
           </div>
           {/* Language Toggle — temporarily hidden, English content preserved */}
@@ -508,12 +490,22 @@ export default function HomePage() {
                                 src={item.logo}
                                 alt={item.org}
                                 className="flex-shrink-0 rounded-xl object-cover"
-                                style={{ width: 72, height: 72, border: "1px solid rgba(0,0,0,0.08)" }}
+                                style={{ width: 56, height: 56, border: "1px solid rgba(0,0,0,0.08)" }}
                               />
                               <div className="flex-1">
-                                <span className="text-sm font-mono font-medium mb-1 block" style={{ color: "#000000" }}>{item.date}</span>
-                                <p className="font-bold text-base mb-0.5" style={{ color: "#000000" }}>{item.org}</p>
-                                <p className="text-sm font-medium mb-3" style={{ color: "#000000" }}>{item.role}</p>
+                                {item.type === "edu" ? (
+                                  <>
+                                    <p className="text-lg font-bold mb-0.5" style={{ color: "#000000" }}>{item.org}</p>
+                                    <span className="text-sm font-mono font-medium mb-0.5 block" style={{ color: "#64748b" }}>{item.date}</span>
+                                    <p className="text-base font-semibold mb-3" style={{ color: "#000000" }}>{item.role}</p>
+                                  </>
+                                ) : (
+                                  <>
+                                    <p className="text-lg font-bold mb-0.5" style={{ color: "#000000" }}>{item.role}</p>
+                                    <p className="text-base font-semibold mb-0.5" style={{ color: "#000000" }}>{item.org}</p>
+                                    <span className="text-sm font-mono font-medium mb-3 block" style={{ color: "#64748b" }}>{item.date}</span>
+                                  </>
+                                )}
                                 {item.desc && (
                                   <p className="text-base font-medium leading-relaxed" style={{ color: "#000000" }}>{item.desc}</p>
                                 )}
@@ -531,35 +523,6 @@ export default function HomePage() {
         </section>
 
         {/* ── Skills ── */}
-        <section id="skills" className="max-w-4xl mx-auto px-8 py-24">
-          <SectionHeading label={t.skills.label} heading={t.skills.heading} />
-          <div className="grid sm:grid-cols-2 gap-5">
-            {skillList.map((group) => (
-              <div
-                key={group.category}
-                className="rounded-2xl p-6"
-                style={surfaceStyle}
-              >
-                <div className="flex items-center gap-3 mb-5">
-                  <span className="text-2xl">{group.icon}</span>
-                  <span className="font-semibold text-base" style={{ color: "#000000" }}>{group.category}</span>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="px-3 py-1 rounded-full text-sm font-mono font-medium"
-                      style={{ background: "rgba(124,58,237,0.08)", color: "#000000", border: "1px solid rgba(124,58,237,0.2)" }}
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* ── Projects ── */}
         <section id="projects" className="max-w-4xl mx-auto px-8 py-24">
           <SectionHeading label={t.projects.label} heading={t.projects.heading} />
