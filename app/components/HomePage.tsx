@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
+
 type Lang = "en" | "zh";
 
 const content = {
   en: {
-    nav: { about: "About", timeline: "Timeline", openSource: "Open Source" },
+    nav: { about: "About", timeline: "Timeline", openSource: "Open Source", chat: "Chat" },
     timeline: { label: "EXPERIENCE", heading: "Timeline" },
     hero: {
       badge: "Algorithm Engineer",
@@ -40,7 +42,7 @@ const content = {
     toggleLabel: "中文",
   },
   zh: {
-    nav: { about: "关于我", timeline: "经历", openSource: "开源" },
+    nav: { about: "关于我", timeline: "经历", openSource: "开源", chat: "AI 对话" },
     timeline: { label: "EXPERIENCE", heading: "经历" },
     hero: {
       badge: "算法工程师",
@@ -254,6 +256,104 @@ function SectionHeading({
   );
 }
 
+function ChatSection() {
+  const [input, setInput] = useState("");
+  const [reply, setReply] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSend() {
+    const msg = input.trim();
+    if (!msg || loading) return;
+    setLoading(true);
+    setReply("");
+    setError("");
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: msg }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        setError(data.error ?? "请求失败");
+        return;
+      }
+      const reader = res.body!.getReader();
+      const decoder = new TextDecoder();
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        setReply((prev) => prev + decoder.decode(value, { stream: true }));
+      }
+    } catch {
+      setError("网络错误，请重试");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <section id="chat" className="max-w-4xl mx-auto px-8 py-12">
+      <SectionHeading label="AI CHAT" heading="和 Allen 的 AI 聊聊" />
+      <div
+        className="rounded-2xl p-6 flex flex-col gap-4"
+        style={{
+          background: "#ffffff",
+          border: "1px solid rgba(15,23,42,0.08)",
+          boxShadow: "0 18px 40px rgba(15,23,42,0.05)",
+        }}
+      >
+        <p className="text-sm font-medium" style={{ color: "#64748b" }}>
+          有任何问题，欢迎直接问 AI —— 它了解 Allen 的经历和技术方向。
+        </p>
+        <div className="flex gap-3">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSend()}
+            placeholder="输入你的问题..."
+            className="flex-1 rounded-xl px-4 py-3 text-base font-medium outline-none"
+            style={{
+              background: "#f8fafc",
+              border: "1px solid rgba(15,23,42,0.12)",
+              color: "#000000",
+            }}
+          />
+          <button
+            onClick={handleSend}
+            disabled={loading || !input.trim()}
+            className="rounded-xl px-5 py-3 text-sm font-semibold transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              background: "linear-gradient(135deg, #164e63, #4c1d95)",
+              color: "#ffffff",
+              border: "none",
+            }}
+          >
+            {loading ? "发送中..." : "发送"}
+          </button>
+        </div>
+        {reply && (
+          <div
+            className="rounded-xl px-5 py-4 text-base font-medium leading-relaxed"
+            style={{
+              background: "#f8fafc",
+              border: "1px solid rgba(15,23,42,0.08)",
+              color: "#000000",
+            }}
+          >
+            {reply}
+          </div>
+        )}
+        {error && (
+          <p className="text-sm font-medium" style={{ color: "#dc2626" }}>{error}</p>
+        )}
+      </div>
+    </section>
+  );
+}
+
 export default function HomePage() {
   const lang: Lang = "zh";
   const t = content[lang];
@@ -306,6 +406,7 @@ export default function HomePage() {
         </span>
         <div className="flex items-center gap-5">
           <div className="flex gap-6 text-sm font-medium" style={{ color: "#000000" }}>
+            <a href="#chat" className="hover:text-slate-900 transition-colors">{t.nav.chat}</a>
             <a href="#timeline" className="hover:text-slate-900 transition-colors">{t.nav.timeline}</a>
             <a href="#open-source" className="hover:text-slate-900 transition-colors">{t.nav.openSource}</a>
           </div>
@@ -327,7 +428,7 @@ export default function HomePage() {
 
       <main>
         {/* ── Hero ── */}
-        <section className="relative flex flex-col items-center justify-center px-6 pb-32 pt-36 text-center sm:pt-40">
+        <section className="relative flex flex-col items-center justify-center px-6 pb-16 pt-36 text-center sm:pt-40">
           <div
             className="pointer-events-none absolute inset-x-0 top-10 mx-auto h-[26rem] max-w-5xl rounded-[3rem] blur-3xl"
             style={{ background: "radial-gradient(circle at 50% 42%, rgba(217,70,239,0.22), transparent 34%), radial-gradient(circle at 35% 55%, rgba(34,211,238,0.24), transparent 30%), radial-gradient(circle at 70% 35%, rgba(37,99,235,0.22), transparent 28%)" }}
@@ -390,8 +491,11 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* ── Chatbot ── */}
+        <ChatSection />
+
         {/* ── Timeline ── */}
-        <section id="timeline" className="max-w-4xl mx-auto px-8 py-24">
+        <section id="timeline" className="max-w-4xl mx-auto px-8 py-12">
           <SectionHeading label={t.timeline.label} heading={t.timeline.heading} />
           <div className="flex flex-col gap-14">
             {(
@@ -465,7 +569,7 @@ export default function HomePage() {
         </section>
 
         {/* ── Open Source ── */}
-        <section id="open-source" className="max-w-4xl mx-auto px-8 py-24">
+        <section id="open-source" className="max-w-4xl mx-auto px-8 py-12">
           <SectionHeading label={t.openSource.label} heading={t.openSource.heading} />
           <div className="flex flex-col gap-6">
             {openSourceList.map((project) => (
