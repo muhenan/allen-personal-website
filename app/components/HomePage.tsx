@@ -6,7 +6,8 @@ type Lang = "en" | "zh";
 
 const content = {
   en: {
-    nav: { about: "About", timeline: "Timeline", skills: "Skills", projects: "Projects" },
+    nav: { about: "About", timeline: "Timeline", skills: "Skills", projects: "Projects", openSource: "Open Source" },
+    timeline: { label: "EXPERIENCE", heading: "Timeline" },
     hero: {
       badge: "Algorithm Engineer",
       greeting: "Hi, I'm",
@@ -33,8 +34,9 @@ const content = {
         "I'm also passionate about diving into open-source projects — from foundational frameworks to cutting-edge models — drawing inspiration from source code and applying it to real-world engineering.",
       ],
     },
-    skills: { heading: "// Skills" },
-    projects: { heading: "// Projects" },
+    skills: { label: "CAPABILITIES", heading: "Skills" },
+    projects: { label: "SELECTED WORK", heading: "Projects" },
+    openSource: { label: "OPEN SOURCE", heading: "Open Source & Community" },
     footer: {
       built: "Built with Next.js & Tailwind CSS.",
       reach: "Reach me at",
@@ -42,7 +44,8 @@ const content = {
     toggleLabel: "中文",
   },
   zh: {
-    nav: { about: "关于我", timeline: "经历", skills: "技能", projects: "项目" },
+    nav: { about: "关于我", timeline: "经历", skills: "技能", projects: "项目", openSource: "开源" },
+    timeline: { label: "EXPERIENCE", heading: "经历" },
     hero: {
       badge: "算法工程师",
       greeting: "你好，我是",
@@ -70,8 +73,9 @@ const content = {
         "此外，我非常热衷于研究各类开源项目，从底层框架到前沿模型，乐于从源码中汲取灵感并将其应用于实际工程。",
       ],
     },
-    skills: { heading: "// 技能栈" },
-    projects: { heading: "// 项目经验" },
+    skills: { label: "CAPABILITIES", heading: "技能栈" },
+    projects: { label: "SELECTED WORK", heading: "项目经验" },
+    openSource: { label: "OPEN SOURCE", heading: "开源与社区" },
     footer: {
       built: "基于 Next.js & Tailwind CSS 构建。",
       reach: "联系方式",
@@ -150,12 +154,35 @@ const projects = {
   ],
 };
 
+const openSource = {
+  en: [
+    {
+      title: "xiaohongshu-mcp",
+      metrics: ["11,000+ stars", "500+ community users"],
+      description:
+        "Built an AI Agent for Xiaohongshu that enables end-to-end automated social media operations, from content generation to execution workflows.",
+      tags: ["MCP", "AI Agent", "Automation", "Open Source"],
+      href: "https://github.com/xpzouying/xiaohongshu-mcp",
+    },
+  ],
+  zh: [
+    {
+      title: "xiaohongshu-mcp",
+      metrics: ["11,000+ Stars", "社区用户超 500 人"],
+      description:
+        "构建小红书 AI Agent，实现从内容生成到执行工作流的端到端自动化，支撑社交媒体账号的全自动运营。",
+      tags: ["MCP", "AI Agent", "自动化", "开源项目"],
+      href: "https://github.com/xpzouying/xiaohongshu-mcp",
+    },
+  ],
+};
+
 type TimelineItem = {
   date: string;
   org: string;
   role: string;
   desc: string;
-  type: "edu" | "work" | "open";
+  type: "edu" | "work";
 };
 
 const timeline: Record<Lang, TimelineItem[]> = {
@@ -195,13 +222,6 @@ const timeline: Record<Lang, TimelineItem[]> = {
       desc: "Built LLM-powered customer service with MoE + multi-agent architecture (intent recognition ↑24%, task completion ↑32%). Developed AI Coding Agent automating Jira → GitHub PR (migration time 3–4 days → <1 day). Collaborated with Google Gemini team on Agentic Commerce, driving 10,000+ new orders/month.",
       type: "work",
     },
-    {
-      date: "Open Source",
-      org: "xiaohongshu-mcp",
-      role: "Contributor · 11,000+ ⭐ · 500+ community users",
-      desc: "Built a Xiaohongshu AI Agent for fully automated social media operations.",
-      type: "open",
-    },
   ],
   zh: [
     {
@@ -239,13 +259,6 @@ const timeline: Record<Lang, TimelineItem[]> = {
       desc: "构建基于 MoE + 多 Agent 架构的 LLM 智能客服，意图识别率 ↑24%，任务完成度 ↑32%。开发 AI Coding Agent 实现 Jira → GitHub PR 全自动化，迁移周期从 3–4 天压缩至 1 天内。与 Google Gemini 团队合作落地 Agentic Commerce，每月新增订单超 10,000 单。",
       type: "work",
     },
-    {
-      date: "开源项目",
-      org: "xiaohongshu-mcp",
-      role: "贡献者 · 11,000+ ⭐ · 社区用户超 500 人",
-      desc: "构建小红书 AI Agent，实现社交媒体账号的全自动化运营。",
-      type: "open",
-    },
   ],
 };
 
@@ -265,11 +278,40 @@ function LinkedInIcon() {
   );
 }
 
+function SectionHeading({
+  label,
+  heading,
+}: {
+  label: string;
+  heading: string;
+}) {
+  return (
+    <div className="mb-10">
+      <p
+        className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em]"
+        style={{ color: "#0f766e" }}
+      >
+        {label}
+      </p>
+      <div className="flex items-center gap-4">
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: "#0f172a" }}>
+          {heading}
+        </h2>
+        <div
+          className="h-px flex-1"
+          style={{ background: "linear-gradient(90deg, rgba(15,118,110,0.35), rgba(15,23,42,0.04))" }}
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function HomePage() {
   const [lang, setLang] = useState<Lang>("zh");
   const t = content[lang];
   const skillList = skills[lang];
   const projectList = projects[lang];
+  const openSourceList = openSource[lang];
 
   return (
     <div className="min-h-screen" style={{ background: "#f8fafc", color: "#0f172a" }}>
@@ -284,6 +326,7 @@ export default function HomePage() {
             <a href="#timeline" className="hover:text-slate-900 transition-colors">{t.nav.timeline}</a>
             <a href="#skills" className="hover:text-slate-900 transition-colors">{t.nav.skills}</a>
             <a href="#projects" className="hover:text-slate-900 transition-colors">{t.nav.projects}</a>
+            <a href="#open-source" className="hover:text-slate-900 transition-colors">{t.nav.openSource}</a>
           </div>
           {/* Language Toggle — temporarily hidden, English content preserved */}
           {/* <button
@@ -339,21 +382,17 @@ export default function HomePage() {
 
         {/* ── Timeline ── */}
         <section id="timeline" className="max-w-4xl mx-auto px-8 py-24">
-          <h2 className="text-2xl font-bold mb-12" style={{ color: "#0f172a" }}>
-            {lang === "zh" ? "经历" : "Timeline"}
-          </h2>
+          <SectionHeading label={t.timeline.label} heading={t.timeline.heading} />
           <div className="flex flex-col gap-14">
             {(
               lang === "zh"
                 ? [
                     { label: "工作经历", type: "work", color: "#164e63" },
                     { label: "教育背景", type: "edu", color: "#4c1d95" },
-                    { label: "开源项目", type: "open", color: "#064e3b" },
                   ]
                 : [
                     { label: "Experience", type: "work", color: "#164e63" },
                     { label: "Education", type: "edu", color: "#4c1d95" },
-                    { label: "Open Source", type: "open", color: "#064e3b" },
                   ]
             ).map((group) => {
               const items = timeline[lang].filter((item) => item.type === group.type).reverse();
@@ -389,9 +428,7 @@ export default function HomePage() {
 
         {/* ── Skills ── */}
         <section id="skills" className="max-w-4xl mx-auto px-8 py-24">
-          <h2 className="text-2xl font-bold mb-10" style={{ color: "#0f172a" }}>
-            {t.skills.heading}
-          </h2>
+          <SectionHeading label={t.skills.label} heading={t.skills.heading} />
           <div className="grid sm:grid-cols-2 gap-5">
             {skillList.map((group) => (
               <div
@@ -421,9 +458,7 @@ export default function HomePage() {
 
         {/* ── Projects ── */}
         <section id="projects" className="max-w-4xl mx-auto px-8 py-24">
-          <h2 className="text-2xl font-bold mb-10" style={{ color: "#0f172a" }}>
-            {t.projects.heading}
-          </h2>
+          <SectionHeading label={t.projects.label} heading={t.projects.heading} />
           <div className="grid sm:grid-cols-2 gap-5">
             {projectList.map((project) => (
               <div
@@ -445,6 +480,58 @@ export default function HomePage() {
                   ))}
                 </div>
               </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Open Source ── */}
+        <section id="open-source" className="max-w-4xl mx-auto px-8 py-24">
+          <SectionHeading label={t.openSource.label} heading={t.openSource.heading} />
+          <div className="grid gap-5">
+            {openSourceList.map((project) => (
+              <a
+                key={project.title}
+                href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-3xl p-7 transition-all hover:-translate-y-1"
+                style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}
+              >
+                <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="max-w-2xl">
+                    <div className="mb-3 flex flex-wrap items-center gap-3">
+                      <h3 className="text-xl font-semibold tracking-tight" style={{ color: "#0f172a" }}>
+                        {project.title}
+                      </h3>
+                    </div>
+                    <p className="text-base leading-relaxed" style={{ color: "#475569" }}>
+                      {project.description}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-2 sm:max-w-[220px] sm:justify-end">
+                    {project.metrics.map((metric) => (
+                      <span
+                        key={metric}
+                        className="rounded-full px-3 py-1 text-sm font-mono"
+                        style={{ background: "rgba(8,145,178,0.08)", color: "#164e63", border: "1px solid rgba(8,145,178,0.2)" }}
+                      >
+                        {metric}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded px-2.5 py-1 text-sm font-mono"
+                      style={{ background: "rgba(124,58,237,0.08)", color: "#4c1d95", border: "1px solid rgba(124,58,237,0.2)" }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </a>
             ))}
           </div>
         </section>
