@@ -322,22 +322,22 @@ export default function HomePage() {
       className="relative min-h-screen overflow-x-hidden"
       style={{
         background:
-          "radial-gradient(circle at top left, rgba(34,211,238,0.16), transparent 28%), radial-gradient(circle at 85% 12%, rgba(59,130,246,0.16), transparent 24%), radial-gradient(circle at 50% 32%, rgba(217,70,239,0.12), transparent 30%), linear-gradient(180deg, #fcfdff 0%, #f8fafc 38%, #f8fafc 100%)",
+          "radial-gradient(circle at top left, rgba(34,211,238,0.24), transparent 30%), radial-gradient(circle at 85% 12%, rgba(59,130,246,0.24), transparent 26%), radial-gradient(circle at 50% 32%, rgba(217,70,239,0.18), transparent 32%), linear-gradient(180deg, #eef6ff 0%, #e9f1ff 38%, #f3f6ff 100%)",
         color: "#000000",
       }}
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[520px] overflow-hidden">
         <div
           className="absolute left-[-8%] top-[-6rem] h-72 w-72 rounded-full blur-3xl"
-          style={{ background: "radial-gradient(circle, rgba(34,211,238,0.34), rgba(34,211,238,0.04) 68%, transparent 72%)" }}
+          style={{ background: "radial-gradient(circle, rgba(34,211,238,0.46), rgba(34,211,238,0.08) 68%, transparent 74%)" }}
         />
         <div
           className="absolute right-[-4%] top-8 h-80 w-80 rounded-full blur-3xl"
-          style={{ background: "radial-gradient(circle, rgba(59,130,246,0.28), rgba(59,130,246,0.05) 65%, transparent 72%)" }}
+          style={{ background: "radial-gradient(circle, rgba(59,130,246,0.38), rgba(59,130,246,0.08) 65%, transparent 74%)" }}
         />
         <div
           className="absolute left-1/2 top-28 h-72 w-[34rem] -translate-x-1/2 rounded-full blur-3xl"
-          style={{ background: "radial-gradient(circle, rgba(217,70,239,0.18), rgba(217,70,239,0.03) 60%, transparent 72%)" }}
+          style={{ background: "radial-gradient(circle, rgba(217,70,239,0.26), rgba(217,70,239,0.06) 60%, transparent 74%)" }}
         />
       </div>
 
@@ -384,7 +384,7 @@ export default function HomePage() {
         <section className="relative flex flex-col items-center justify-center px-6 pb-32 pt-36 text-center sm:pt-40">
           <div
             className="pointer-events-none absolute inset-x-0 top-10 mx-auto h-[26rem] max-w-5xl rounded-[3rem] blur-3xl"
-            style={{ background: "radial-gradient(circle at 50% 42%, rgba(217,70,239,0.16), transparent 32%), radial-gradient(circle at 35% 55%, rgba(34,211,238,0.18), transparent 28%), radial-gradient(circle at 70% 35%, rgba(37,99,235,0.16), transparent 26%)" }}
+            style={{ background: "radial-gradient(circle at 50% 42%, rgba(217,70,239,0.22), transparent 34%), radial-gradient(circle at 35% 55%, rgba(34,211,238,0.24), transparent 30%), radial-gradient(circle at 70% 35%, rgba(37,99,235,0.22), transparent 28%)" }}
           />
           <div
             className="animate-fade-in relative mx-auto max-w-5xl rounded-[2rem] px-6 py-12 sm:px-10"
