@@ -181,6 +181,8 @@ type TimelineItem = {
   role: string;
   desc: string;
   type: "edu" | "work";
+  logo: string;
+  logoType: "square" | "wide";
 };
 
 const timeline: Record<Lang, TimelineItem[]> = {
@@ -191,6 +193,8 @@ const timeline: Record<Lang, TimelineItem[]> = {
       role: "B.Eng. · Software Engineering · GPA 3.8/4.0",
       desc: "",
       type: "edu",
+      logo: "/logos/sysu.jpeg",
+      logoType: "square",
     },
     {
       date: "Mar – Jun 2021",
@@ -198,6 +202,8 @@ const timeline: Record<Lang, TimelineItem[]> = {
       role: "iOS Engineer Intern",
       desc: "Developed video-page features for Toutiao iOS app serving 160M+ DAU. Independently designed and shipped the Hot Topics Card module.",
       type: "work",
+      logo: "/logos/bytedance.jpeg",
+      logoType: "square",
     },
     {
       date: "Sep 2022",
@@ -205,6 +211,8 @@ const timeline: Record<Lang, TimelineItem[]> = {
       role: "M.S. · Software Engineering · GPA 4.0/4.0",
       desc: "",
       type: "edu",
+      logo: "/logos/neu.jpeg",
+      logoType: "square",
     },
     {
       date: "Jul – Dec 2023",
@@ -212,6 +220,8 @@ const timeline: Record<Lang, TimelineItem[]> = {
       role: "Software Engineer Intern",
       desc: "Led PHP-to-C# microservice migration (3× scalability, 95% error rate reduction). Migrated 13B historical records to GCP PostgreSQL with zero downtime. Optimized peak read QPS to 10k+, P95 latency ↓60%.",
       type: "work",
+      logo: "/logos/wayfair_logo.jpeg",
+      logoType: "square",
     },
     {
       date: "Jun 2024 – Present",
@@ -219,6 +229,8 @@ const timeline: Record<Lang, TimelineItem[]> = {
       role: "Algorithm Engineer",
       desc: "Built LLM-powered customer service with MoE + multi-agent architecture (intent recognition ↑24%, task completion ↑32%). Developed AI Coding Agent automating Jira → GitHub PR (migration time 3–4 days → <1 day). Collaborated with Google Gemini team on Agentic Commerce, driving 10,000+ new orders/month.",
       type: "work",
+      logo: "/logos/wayfair_logo.jpeg",
+      logoType: "square",
     },
   ],
   zh: [
@@ -228,6 +240,8 @@ const timeline: Record<Lang, TimelineItem[]> = {
       role: "本科 · 软件工程 · GPA 3.8/4.0",
       desc: "",
       type: "edu",
+      logo: "/logos/sysu.jpeg",
+      logoType: "square",
     },
     {
       date: "2021.03 – 2021.06",
@@ -235,6 +249,8 @@ const timeline: Record<Lang, TimelineItem[]> = {
       role: "客户端研发工程师（实习）",
       desc: "为今日头条 iOS 客户端开发视频页功能，服务超 1.6 亿日活用户。独立负责【热点卡片】模块的设计与开发，按期高质量上线。",
       type: "work",
+      logo: "/logos/bytedance.jpeg",
+      logoType: "square",
     },
     {
       date: "2022.09 – 2024.05",
@@ -242,6 +258,8 @@ const timeline: Record<Lang, TimelineItem[]> = {
       role: "硕士 · 软件工程 · GPA 4.0/4.0",
       desc: "",
       type: "edu",
+      logo: "/logos/neu.jpeg",
+      logoType: "square",
     },
     {
       date: "2023.07 – 2023.12",
@@ -249,6 +267,8 @@ const timeline: Record<Lang, TimelineItem[]> = {
       role: "软件研发工程师（实习）",
       desc: "主导 PHP → C# 微服务迁移，系统可扩展性提升 3 倍，事件失败率降低 95%。将 130 亿条历史记录迁移至 GCP PostgreSQL，零宕机。优化峰值读 QPS 至 10k+，P95 响应时间降低 60%。",
       type: "work",
+      logo: "/logos/wayfair_logo.jpeg",
+      logoType: "square",
     },
     {
       date: "2024.06 – 至今",
@@ -256,6 +276,8 @@ const timeline: Record<Lang, TimelineItem[]> = {
       role: "算法工程师",
       desc: "构建基于 MoE + 多 Agent 架构的 LLM 智能客服，意图识别率 ↑24%，任务完成度 ↑32%。开发 AI Coding Agent 实现 Jira → GitHub PR 全自动化，迁移周期从 3–4 天压缩至 1 天内。与 Google Gemini 团队合作落地 Agentic Commerce，每月新增订单超 10,000 单。",
       type: "work",
+      logo: "/logos/wayfair_logo.jpeg",
+      logoType: "square",
     },
   ],
 };
@@ -481,11 +503,21 @@ export default function HomePage() {
                               style={{ background: group.color, outline: `2px solid ${group.color}`, outlineOffset: "3px" }} />
                           </div>
                           <div className="flex-1 pb-2">
-                            <span className="text-sm font-mono font-medium mb-1.5 block" style={{ color: "#000000" }}>{item.date}</span>
-                            <p className="font-bold text-base mb-1" style={{ color: "#000000" }}>{item.org}</p>
-                            <p className="text-sm font-medium mb-3" style={{ color: "#000000" }}>{item.role}</p>
+                            <div className="flex items-start justify-between gap-4 mb-2">
+                              <div>
+                                <span className="text-sm font-mono font-medium mb-1 block" style={{ color: "#000000" }}>{item.date}</span>
+                                <p className="font-bold text-base mb-0.5" style={{ color: "#000000" }}>{item.org}</p>
+                                <p className="text-sm font-medium" style={{ color: "#000000" }}>{item.role}</p>
+                              </div>
+                              <img
+                                src={item.logo}
+                                alt={item.org}
+                                className="flex-shrink-0 rounded-xl object-cover"
+                                style={{ width: 72, height: 72, border: "1px solid rgba(0,0,0,0.08)" }}
+                              />
+                            </div>
                             {item.desc && (
-                              <p className="text-base font-medium leading-relaxed" style={{ color: "#000000" }}>{item.desc}</p>
+                              <p className="text-base font-medium leading-relaxed mt-3" style={{ color: "#000000" }}>{item.desc}</p>
                             )}
                           </div>
                         </div>
