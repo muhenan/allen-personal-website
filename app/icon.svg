@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <g filter="url(#glow)">
+    <circle cx="32" cy="32" r="22" fill="url(#orb)"/>
+    <circle cx="32" cy="32" r="21" stroke="rgba(255,255,255,0.2)" stroke-width="1.4"/>
+  </g>
+  <path
+    d="M32 11L36.4 27.6L53 32L36.4 36.4L32 53L27.6 36.4L11 32L27.6 27.6L32 11Z"
+    fill="#F8FAFC"
+  />
+  <defs>
+    <radialGradient id="orb" cx="0" cy="0" r="1" gradientTransform="translate(24 18) rotate(50) scale(34 35)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE8F6"/>
+      <stop offset="0.18" stop-color="#FF4FB7"/>
+      <stop offset="0.46" stop-color="#9D3BFF"/>
+      <stop offset="0.76" stop-color="#2D5BFF"/>
+      <stop offset="1" stop-color="#0EA5E9"/>
+    </radialGradient>
+    <filter id="glow" x="6" y="6" width="52" height="52" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape"/>
+      <feGaussianBlur result="effect1_foregroundBlur_1_2" stdDeviation="3"/>
+    </filter>
+  </defs>
+</svg>

@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 type Lang = "en" | "zh";
 
 const content = {
@@ -289,7 +287,11 @@ function SectionHeading({
     <div className="mb-10">
       <p
         className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em]"
-        style={{ color: "#0f766e" }}
+        style={{
+          background: "linear-gradient(90deg, #2563eb, #d946ef 55%, #0f766e)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }}
       >
         {label}
       </p>
@@ -299,7 +301,7 @@ function SectionHeading({
         </h2>
         <div
           className="h-px flex-1"
-          style={{ background: "linear-gradient(90deg, rgba(15,118,110,0.35), rgba(15,23,42,0.04))" }}
+          style={{ background: "linear-gradient(90deg, rgba(37,99,235,0.42), rgba(217,70,239,0.22), rgba(15,23,42,0.04))" }}
         />
       </div>
     </div>
@@ -307,20 +309,62 @@ function SectionHeading({
 }
 
 export default function HomePage() {
-  const [lang, setLang] = useState<Lang>("zh");
+  const lang: Lang = "zh";
   const t = content[lang];
   const skillList = skills[lang];
   const projectList = projects[lang];
   const openSourceList = openSource[lang];
 
+  const surfaceStyle = {
+    background: "rgba(255,255,255,0.72)",
+    border: "1px solid rgba(255,255,255,0.75)",
+    boxShadow: "0 18px 60px rgba(15,23,42,0.08), inset 0 1px 0 rgba(255,255,255,0.45)",
+    backdropFilter: "blur(18px)",
+  } as const;
+
   return (
-    <div className="min-h-screen" style={{ background: "#f8fafc", color: "#0f172a" }}>
+    <div
+      className="relative min-h-screen overflow-x-hidden"
+      style={{
+        background:
+          "radial-gradient(circle at top left, rgba(34,211,238,0.16), transparent 28%), radial-gradient(circle at 85% 12%, rgba(59,130,246,0.16), transparent 24%), radial-gradient(circle at 50% 32%, rgba(217,70,239,0.12), transparent 30%), linear-gradient(180deg, #fcfdff 0%, #f8fafc 38%, #f8fafc 100%)",
+        color: "#0f172a",
+      }}
+    >
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[520px] overflow-hidden">
+        <div
+          className="absolute left-[-8%] top-[-6rem] h-72 w-72 rounded-full blur-3xl"
+          style={{ background: "radial-gradient(circle, rgba(34,211,238,0.34), rgba(34,211,238,0.04) 68%, transparent 72%)" }}
+        />
+        <div
+          className="absolute right-[-4%] top-8 h-80 w-80 rounded-full blur-3xl"
+          style={{ background: "radial-gradient(circle, rgba(59,130,246,0.28), rgba(59,130,246,0.05) 65%, transparent 72%)" }}
+        />
+        <div
+          className="absolute left-1/2 top-28 h-72 w-[34rem] -translate-x-1/2 rounded-full blur-3xl"
+          style={{ background: "radial-gradient(circle, rgba(217,70,239,0.18), rgba(217,70,239,0.03) 60%, transparent 72%)" }}
+        />
+      </div>
+
       {/* Nav */}
       <nav
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4"
-        style={{ background: "rgba(248,250,252,0.88)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(0,0,0,0.07)" }}
+        style={{
+          background: "linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0.58))",
+          backdropFilter: "blur(18px)",
+          borderBottom: "1px solid rgba(148,163,184,0.16)",
+        }}
       >
-        <span className="font-mono text-sm font-bold" style={{ color: "#164e63" }}>allen.dev</span>
+        <span
+          className="font-mono text-sm font-bold"
+          style={{
+            background: "linear-gradient(90deg, #0f766e, #2563eb 52%, #9333ea)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+        >
+          allen.dev
+        </span>
         <div className="flex items-center gap-5">
           <div className="flex gap-6 text-sm" style={{ color: "#64748b" }}>
             <a href="#timeline" className="hover:text-slate-900 transition-colors">{t.nav.timeline}</a>
@@ -346,37 +390,66 @@ export default function HomePage() {
 
       <main>
         {/* ── Hero ── */}
-        <section className="flex flex-col items-center justify-center text-center px-6 pt-40 pb-32">
-          <h1 className="animate-fade-in-up delay-100 text-6xl sm:text-8xl font-bold tracking-tight mb-8" style={{ color: "#0f172a" }}>
+        <section className="relative flex flex-col items-center justify-center px-6 pb-32 pt-36 text-center sm:pt-40">
+          <div
+            className="pointer-events-none absolute inset-x-0 top-10 mx-auto h-[26rem] max-w-5xl rounded-[3rem] blur-3xl"
+            style={{ background: "radial-gradient(circle at 50% 42%, rgba(217,70,239,0.16), transparent 32%), radial-gradient(circle at 35% 55%, rgba(34,211,238,0.18), transparent 28%), radial-gradient(circle at 70% 35%, rgba(37,99,235,0.16), transparent 26%)" }}
+          />
+          <div
+            className="animate-fade-in relative mx-auto max-w-5xl rounded-[2rem] px-6 py-12 sm:px-10"
+            style={surfaceStyle}
+          >
+            <div
+              className="mx-auto mb-6 inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.26em]"
+              style={{
+                background: "linear-gradient(90deg, rgba(34,211,238,0.14), rgba(217,70,239,0.14))",
+                border: "1px solid rgba(255,255,255,0.72)",
+                color: "#475569",
+              }}
+            >
+              {t.hero.badge}
+            </div>
+            <h1 className="animate-fade-in-up delay-100 mb-8 text-6xl font-bold tracking-tight sm:text-8xl" style={{ color: "#0f172a" }}>
             {t.hero.greeting}{" "}
             <span style={{ background: "linear-gradient(135deg, #164e63, #4c1d95)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
               Allen
             </span>
-          </h1>
-          <p className="animate-fade-in-up delay-300 max-w-2xl text-xl leading-relaxed mb-10" style={{ color: "#475569" }}>
-            {t.hero.slogan}
-          </p>
-          <div className="animate-fade-in-up delay-400 flex gap-4">
-            <a
-              href="https://github.com/muhenan"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all hover:scale-105"
-              style={{ background: "#0f172a", border: "1px solid #0f172a", color: "#f8fafc" }}
-            >
-              <GitHubIcon />
-              GitHub
-            </a>
-            <a
-              href="https://www.linkedin.com/in/henan-mu-519b6624b/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all hover:scale-105"
-              style={{ background: "#0077B5", border: "1px solid #0077B5", color: "#ffffff" }}
-            >
-              <LinkedInIcon />
-              LinkedIn
-            </a>
+            </h1>
+            <p className="animate-fade-in-up delay-300 mx-auto mb-10 max-w-3xl text-xl leading-relaxed" style={{ color: "#475569" }}>
+              {t.hero.slogan}
+            </p>
+            <div className="animate-fade-in-up delay-400 flex flex-wrap justify-center gap-4">
+              <a
+                href="https://github.com/muhenan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all hover:scale-105"
+                style={{
+                  background: "linear-gradient(135deg, #0f172a, #1e293b)",
+                  border: "1px solid rgba(15,23,42,0.9)",
+                  color: "#f8fafc",
+                  boxShadow: "0 12px 32px rgba(15,23,42,0.22)",
+                }}
+              >
+                <GitHubIcon />
+                GitHub
+              </a>
+              <a
+                href="https://www.linkedin.com/in/henan-mu-519b6624b/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all hover:scale-105"
+                style={{
+                  background: "linear-gradient(135deg, rgba(255,255,255,0.86), rgba(255,255,255,0.68))",
+                  border: "1px solid rgba(148,163,184,0.22)",
+                  color: "#0f172a",
+                  boxShadow: "0 10px 24px rgba(15,23,42,0.08)",
+                }}
+              >
+                <LinkedInIcon />
+                LinkedIn
+              </a>
+            </div>
           </div>
         </section>
 
@@ -434,7 +507,7 @@ export default function HomePage() {
               <div
                 key={group.category}
                 className="rounded-2xl p-6"
-                style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}
+                style={surfaceStyle}
               >
                 <div className="flex items-center gap-3 mb-5">
                   <span className="text-2xl">{group.icon}</span>
@@ -464,7 +537,7 @@ export default function HomePage() {
               <div
                 key={project.title}
                 className="rounded-2xl p-6 flex flex-col gap-4 transition-all hover:-translate-y-1"
-                style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}
+                style={surfaceStyle}
               >
                 <h3 className="font-semibold text-base leading-snug" style={{ color: "#0f172a" }}>{project.title}</h3>
                 <p className="text-base leading-relaxed flex-1" style={{ color: "#475569" }}>{project.description}</p>
@@ -495,7 +568,7 @@ export default function HomePage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block rounded-3xl p-7 transition-all hover:-translate-y-1"
-                style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}
+                style={surfaceStyle}
               >
                 <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
                   <div className="max-w-2xl">
