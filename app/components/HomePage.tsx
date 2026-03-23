@@ -363,7 +363,7 @@ export default function HomePage() {
             WebkitTextFillColor: "transparent",
           }}
         >
-          allen.dev
+          muhenan.com
         </span>
         <div className="flex items-center gap-5">
           <div className="flex gap-6 text-sm" style={{ color: "#64748b" }}>
@@ -617,8 +617,8 @@ export default function HomePage() {
         </p>
         <p className="text-sm mt-1" style={{ color: "#94a3b8" }}>
           {t.footer.reach}{" "}
-          <a href="mailto:allen@example.com" className="transition-colors hover:text-cyan-600" style={{ color: "#164e63" }}>
-            allen@example.com
+          <a href="mailto:allenmu31@gmail.com" className="transition-colors hover:text-cyan-600" style={{ color: "#164e63" }}>
+            allenmu31@gmail.com
           </a>
         </p>
       </footer>
