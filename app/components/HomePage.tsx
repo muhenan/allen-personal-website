@@ -485,7 +485,7 @@ export default function HomePage() {
                               style={{ background: group.color, outline: `2px solid ${group.color}`, outlineOffset: "3px" }} />
                           </div>
                           <div className="flex-1 pb-2">
-                            <div className="flex items-start gap-4">
+                            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
                               <img
                                 src={item.logo}
                                 alt={item.org}
