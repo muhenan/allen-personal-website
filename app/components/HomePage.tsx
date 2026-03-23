@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 type Lang = "en" | "zh";
 
@@ -261,6 +261,18 @@ function ChatSection() {
   const [reply, setReply] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [elapsed, setElapsed] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    if (loading) {
+      setElapsed(0);
+      timerRef.current = setInterval(() => setElapsed((s) => s + 1), 1000);
+    } else {
+      if (timerRef.current) clearInterval(timerRef.current);
+    }
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [loading]);
 
   async function handleSend() {
     const msg = input.trim();
@@ -331,9 +343,19 @@ function ChatSection() {
               border: "none",
             }}
           >
-            {loading ? "发送中..." : "发送"}
+            发送
           </button>
         </div>
+        {loading && !reply && (
+          <div className="flex items-center gap-2" style={{ color: "#64748b" }}>
+            <span className="flex gap-1">
+              <span className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: "#94a3b8", animationDelay: "0ms" }} />
+              <span className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: "#94a3b8", animationDelay: "150ms" }} />
+              <span className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: "#94a3b8", animationDelay: "300ms" }} />
+            </span>
+            <span className="text-sm font-medium">思考中 {elapsed}s</span>
+          </div>
+        )}
         {reply && (
           <div
             className="rounded-xl px-5 py-4 text-base font-medium leading-relaxed"
