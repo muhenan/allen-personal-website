@@ -287,16 +287,12 @@ function SectionHeading({
     <div className="mb-10">
       <p
         className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em]"
-        style={{
-          background: "linear-gradient(90deg, #2563eb, #d946ef 55%, #0f766e)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-        }}
+        style={{ color: "#000000" }}
       >
         {label}
       </p>
       <div className="flex items-center gap-4">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: "#0f172a" }}>
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: "#000000" }}>
           {heading}
         </h2>
         <div
@@ -316,10 +312,9 @@ export default function HomePage() {
   const openSourceList = openSource[lang];
 
   const surfaceStyle = {
-    background: "rgba(255,255,255,0.72)",
-    border: "1px solid rgba(255,255,255,0.75)",
-    boxShadow: "0 18px 60px rgba(15,23,42,0.08), inset 0 1px 0 rgba(255,255,255,0.45)",
-    backdropFilter: "blur(18px)",
+    background: "#ffffff",
+    border: "1px solid rgba(15,23,42,0.08)",
+    boxShadow: "0 18px 40px rgba(15,23,42,0.05)",
   } as const;
 
   return (
@@ -328,7 +323,7 @@ export default function HomePage() {
       style={{
         background:
           "radial-gradient(circle at top left, rgba(34,211,238,0.16), transparent 28%), radial-gradient(circle at 85% 12%, rgba(59,130,246,0.16), transparent 24%), radial-gradient(circle at 50% 32%, rgba(217,70,239,0.12), transparent 30%), linear-gradient(180deg, #fcfdff 0%, #f8fafc 38%, #f8fafc 100%)",
-        color: "#0f172a",
+        color: "#000000",
       }}
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[520px] overflow-hidden">
@@ -357,16 +352,12 @@ export default function HomePage() {
       >
         <span
           className="font-mono text-sm font-bold"
-          style={{
-            background: "linear-gradient(90deg, #0f766e, #2563eb 52%, #9333ea)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-          }}
+          style={{ color: "#000000" }}
         >
           muhenan.com
         </span>
         <div className="flex items-center gap-5">
-          <div className="flex gap-6 text-sm" style={{ color: "#64748b" }}>
+          <div className="flex gap-6 text-sm font-medium" style={{ color: "#000000" }}>
             <a href="#timeline" className="hover:text-slate-900 transition-colors">{t.nav.timeline}</a>
             <a href="#skills" className="hover:text-slate-900 transition-colors">{t.nav.skills}</a>
             <a href="#projects" className="hover:text-slate-900 transition-colors">{t.nav.projects}</a>
@@ -404,18 +395,18 @@ export default function HomePage() {
               style={{
                 background: "linear-gradient(90deg, rgba(34,211,238,0.14), rgba(217,70,239,0.14))",
                 border: "1px solid rgba(255,255,255,0.72)",
-                color: "#475569",
+                color: "#000000",
               }}
             >
               {t.hero.badge}
             </div>
-            <h1 className="animate-fade-in-up delay-100 mb-8 text-6xl font-bold tracking-tight sm:text-8xl" style={{ color: "#0f172a" }}>
+            <h1 className="animate-fade-in-up delay-100 mb-8 text-6xl font-bold tracking-tight sm:text-8xl" style={{ color: "#000000" }}>
             {t.hero.greeting}{" "}
             <span style={{ background: "linear-gradient(135deg, #164e63, #4c1d95)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
               Allen
             </span>
             </h1>
-            <p className="animate-fade-in-up delay-300 mx-auto mb-10 max-w-3xl text-xl leading-relaxed" style={{ color: "#475569" }}>
+            <p className="animate-fade-in-up delay-300 mx-auto mb-10 max-w-3xl text-xl font-medium leading-relaxed" style={{ color: "#000000" }}>
               {t.hero.slogan}
             </p>
             <div className="animate-fade-in-up delay-400 flex flex-wrap justify-center gap-4">
@@ -470,8 +461,16 @@ export default function HomePage() {
             ).map((group) => {
               const items = timeline[lang].filter((item) => item.type === group.type).reverse();
               return (
-                <div key={group.label}>
-                  <p className="text-base font-semibold tracking-wide mb-6" style={{ color: group.color }}>{group.label}</p>
+                <div
+                  key={group.label}
+                  className="rounded-[2rem] p-7 sm:p-8"
+                  style={{
+                    background: "#ffffff",
+                    border: "1px solid rgba(15,23,42,0.1)",
+                    boxShadow: "0 16px 32px rgba(15,23,42,0.04)",
+                  }}
+                >
+                  <p className="text-base font-semibold tracking-wide mb-6" style={{ color: "#000000" }}>{group.label}</p>
                   <div className="relative">
                     <div className="absolute left-3 top-0 bottom-0 w-px" style={{ background: `linear-gradient(to bottom, ${group.color}44, transparent)` }} />
                     <div className="flex flex-col gap-7">
@@ -482,11 +481,11 @@ export default function HomePage() {
                               style={{ background: group.color, outline: `2px solid ${group.color}`, outlineOffset: "3px" }} />
                           </div>
                           <div className="flex-1 pb-2">
-                            <span className="text-sm font-mono mb-1.5 block" style={{ color: group.color }}>{item.date}</span>
-                            <p className="font-bold text-base mb-1" style={{ color: "#0f172a" }}>{item.org}</p>
-                            <p className="text-sm mb-3" style={{ color: "#64748b" }}>{item.role}</p>
+                            <span className="text-sm font-mono font-medium mb-1.5 block" style={{ color: "#000000" }}>{item.date}</span>
+                            <p className="font-bold text-base mb-1" style={{ color: "#000000" }}>{item.org}</p>
+                            <p className="text-sm font-medium mb-3" style={{ color: "#000000" }}>{item.role}</p>
                             {item.desc && (
-                              <p className="text-base leading-relaxed" style={{ color: "#475569" }}>{item.desc}</p>
+                              <p className="text-base font-medium leading-relaxed" style={{ color: "#000000" }}>{item.desc}</p>
                             )}
                           </div>
                         </div>
@@ -511,14 +510,14 @@ export default function HomePage() {
               >
                 <div className="flex items-center gap-3 mb-5">
                   <span className="text-2xl">{group.icon}</span>
-                  <span className="font-semibold text-base" style={{ color: "#0f172a" }}>{group.category}</span>
+                  <span className="font-semibold text-base" style={{ color: "#000000" }}>{group.category}</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {group.items.map((item) => (
                     <span
                       key={item}
-                      className="px-3 py-1 rounded-full text-sm font-mono"
-                      style={{ background: "rgba(124,58,237,0.08)", color: "#4c1d95", border: "1px solid rgba(124,58,237,0.2)" }}
+                      className="px-3 py-1 rounded-full text-sm font-mono font-medium"
+                      style={{ background: "rgba(124,58,237,0.08)", color: "#000000", border: "1px solid rgba(124,58,237,0.2)" }}
                     >
                       {item}
                     </span>
@@ -536,17 +535,17 @@ export default function HomePage() {
             {projectList.map((project) => (
               <div
                 key={project.title}
-                className="rounded-2xl p-6 flex flex-col gap-4 transition-all hover:-translate-y-1"
+                className="rounded-2xl p-6 flex flex-col gap-4"
                 style={surfaceStyle}
               >
-                <h3 className="font-semibold text-base leading-snug" style={{ color: "#0f172a" }}>{project.title}</h3>
-                <p className="text-base leading-relaxed flex-1" style={{ color: "#475569" }}>{project.description}</p>
+                <h3 className="font-semibold text-base leading-snug" style={{ color: "#000000" }}>{project.title}</h3>
+                <p className="text-base font-medium leading-relaxed flex-1" style={{ color: "#000000" }}>{project.description}</p>
                 <div className="flex flex-wrap gap-2 pt-1">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2.5 py-1 rounded text-sm font-mono"
-                      style={{ background: "rgba(8,145,178,0.08)", color: "#164e63", border: "1px solid rgba(8,145,178,0.2)" }}
+                      className="px-2.5 py-1 rounded text-sm font-mono font-medium"
+                      style={{ background: "rgba(8,145,178,0.08)", color: "#000000", border: "1px solid rgba(8,145,178,0.16)" }}
                     >
                       {tag}
                     </span>
@@ -573,11 +572,11 @@ export default function HomePage() {
                 <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
                   <div className="max-w-2xl">
                     <div className="mb-3 flex flex-wrap items-center gap-3">
-                      <h3 className="text-xl font-semibold tracking-tight" style={{ color: "#0f172a" }}>
+                      <h3 className="text-xl font-semibold tracking-tight" style={{ color: "#000000" }}>
                         {project.title}
                       </h3>
                     </div>
-                    <p className="text-base leading-relaxed" style={{ color: "#475569" }}>
+                    <p className="text-base leading-relaxed" style={{ color: "#000000" }}>
                       {project.description}
                     </p>
                   </div>
@@ -586,7 +585,7 @@ export default function HomePage() {
                       <span
                         key={metric}
                         className="rounded-full px-3 py-1 text-sm font-mono"
-                        style={{ background: "rgba(8,145,178,0.08)", color: "#164e63", border: "1px solid rgba(8,145,178,0.2)" }}
+                        style={{ background: "rgba(8,145,178,0.08)", color: "#000000", border: "1px solid rgba(8,145,178,0.16)" }}
                       >
                         {metric}
                       </span>
@@ -598,7 +597,7 @@ export default function HomePage() {
                     <span
                       key={tag}
                       className="rounded px-2.5 py-1 text-sm font-mono"
-                      style={{ background: "rgba(124,58,237,0.08)", color: "#4c1d95", border: "1px solid rgba(124,58,237,0.2)" }}
+                      style={{ background: "rgba(124,58,237,0.08)", color: "#000000", border: "1px solid rgba(124,58,237,0.16)" }}
                     >
                       {tag}
                     </span>
@@ -612,12 +611,12 @@ export default function HomePage() {
 
       {/* ── Footer ── */}
       <footer className="mt-20 py-10 text-center" style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}>
-        <p className="text-sm" style={{ color: "#94a3b8" }}>
+        <p className="text-sm" style={{ color: "#000000" }}>
           © {new Date().getFullYear()} Allen. {t.footer.built}
         </p>
-        <p className="text-sm mt-1" style={{ color: "#94a3b8" }}>
+        <p className="text-sm mt-1" style={{ color: "#000000" }}>
           {t.footer.reach}{" "}
-          <a href="mailto:allenmu31@gmail.com" className="transition-colors hover:text-cyan-600" style={{ color: "#164e63" }}>
+          <a href="mailto:allenmu31@gmail.com" className="transition-colors" style={{ color: "#000000" }}>
             allenmu31@gmail.com
           </a>
         </p>
