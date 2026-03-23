@@ -150,9 +150,9 @@ const openSource = {
   zh: [
     {
       title: "xiaohongshu-mcp",
-      metrics: ["11,000+ Stars", "社区用户超 500 人"],
+      metrics: ["12,000+ Stars", "社区用户超 500 人"],
       description:
-        "构建小红书 AI Agent，实现从内容生成到执行工作流的端到端自动化，支撑社交媒体账号的全自动运营。",
+        "基于 MCP 协议构建小红书 AI Agent，实现从内容生成到执行工作流的端到端自动化，支撑社交媒体账号的全自动运营。项目在 GitHub 获星超 12,000，社区活跃用户超 500 人。最近新增 Openclaw 🦞 深度集成，进一步扩展平台能力。",
       tags: ["MCP", "AI Agent", "自动化", "开源项目"],
       href: "https://github.com/xpzouying/xiaohongshu-mcp",
     },
@@ -554,51 +554,51 @@ export default function HomePage() {
         {/* ── Open Source ── */}
         <section id="open-source" className="max-w-4xl mx-auto px-8 py-24">
           <SectionHeading label={t.openSource.label} heading={t.openSource.heading} />
-          <div className="grid gap-5">
+          <div className="flex flex-col gap-6">
             {openSourceList.map((project) => (
-              <a
+              <div
                 key={project.title}
-                href={project.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block rounded-3xl p-7 transition-all hover:-translate-y-1"
-                style={surfaceStyle}
+                className="rounded-2xl px-8 py-10"
+                style={{
+                  background: "linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%)",
+                  position: "relative",
+                  overflow: "hidden",
+                }}
               >
-                <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="max-w-2xl">
-                    <div className="mb-3 flex flex-wrap items-center gap-3">
-                      <h3 className="text-xl font-semibold tracking-tight" style={{ color: "#000000" }}>
-                        {project.title}
-                      </h3>
+                {/* 背景光晕 */}
+                <div className="pointer-events-none absolute inset-0">
+                  <div className="absolute left-[-10%] top-[-20%] h-64 w-64 rounded-full blur-3xl" style={{ background: "rgba(129,140,248,0.15)" }} />
+                  <div className="absolute right-[-5%] bottom-[-10%] h-56 w-56 rounded-full blur-3xl" style={{ background: "rgba(34,211,238,0.1)" }} />
+                </div>
+                <div className="relative text-center">
+                  <p className="mb-2 text-xs font-mono tracking-[0.3em] uppercase" style={{ color: "rgba(165,180,252,0.7)" }}>Open Source</p>
+                  <h3 className="mb-4 text-3xl font-bold tracking-tight" style={{ color: "#ffffff" }}>{project.title}</h3>
+                  <div className="mb-6 flex justify-center gap-8">
+                    <div>
+                      <p className="text-4xl font-bold" style={{ color: "#a5b4fc" }}>12,000+</p>
+                      <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>GitHub 获星数 ★</p>
                     </div>
-                    <p className="text-base leading-relaxed" style={{ color: "#000000" }}>
-                      {project.description}
-                    </p>
+                    <div style={{ width: 1, background: "rgba(255,255,255,0.1)" }} />
+                    <div>
+                      <p className="text-4xl font-bold" style={{ color: "#67e8f9" }}>500+</p>
+                      <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>{lang === "zh" ? "社区活跃用户数" : "Community Users"}</p>
+                    </div>
                   </div>
-                  <div className="flex flex-wrap gap-2 sm:max-w-[220px] sm:justify-end">
-                    {project.metrics.map((metric) => (
-                      <span
-                        key={metric}
-                        className="rounded-full px-3 py-1 text-sm font-mono"
-                        style={{ background: "rgba(8,145,178,0.08)", color: "#000000", border: "1px solid rgba(8,145,178,0.16)" }}
-                      >
-                        {metric}
-                      </span>
-                    ))}
-                  </div>
+                  <p className="mx-auto mb-6 max-w-xl text-base font-medium leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>
+                    {project.description}
+                  </p>
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all hover:scale-105"
+                    style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", color: "#ffffff" }}
+                  >
+                    <GitHubIcon />
+                    {lang === "zh" ? "查看项目" : "View on GitHub"}
+                  </a>
                 </div>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded px-2.5 py-1 text-sm font-mono"
-                      style={{ background: "rgba(124,58,237,0.08)", color: "#000000", border: "1px solid rgba(124,58,237,0.16)" }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </a>
+              </div>
             ))}
           </div>
         </section>
