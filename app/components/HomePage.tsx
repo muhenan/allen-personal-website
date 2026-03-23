@@ -6,7 +6,7 @@ type Lang = "en" | "zh";
 
 const content = {
   en: {
-    nav: { about: "About", skills: "Skills", projects: "Projects" },
+    nav: { about: "About", timeline: "Timeline", skills: "Skills", projects: "Projects" },
     hero: {
       badge: "Algorithm Engineer",
       greeting: "Hi, I'm",
@@ -42,7 +42,7 @@ const content = {
     toggleLabel: "中文",
   },
   zh: {
-    nav: { about: "关于我", skills: "技能", projects: "项目" },
+    nav: { about: "关于我", timeline: "经历", skills: "技能", projects: "项目" },
     hero: {
       badge: "算法工程师",
       greeting: "你好，我是",
@@ -150,6 +150,105 @@ const projects = {
   ],
 };
 
+type TimelineItem = {
+  date: string;
+  org: string;
+  role: string;
+  desc: string;
+  type: "edu" | "work" | "open";
+};
+
+const timeline: Record<Lang, TimelineItem[]> = {
+  en: [
+    {
+      date: "Sep 2018",
+      org: "Sun Yat-sen University",
+      role: "B.Eng. · Software Engineering · GPA 3.8/4.0",
+      desc: "",
+      type: "edu",
+    },
+    {
+      date: "Mar – Jun 2021",
+      org: "ByteDance · Toutiao",
+      role: "iOS Engineer Intern",
+      desc: "Developed video-page features for Toutiao iOS app serving 160M+ DAU. Independently designed and shipped the Hot Topics Card module.",
+      type: "work",
+    },
+    {
+      date: "Sep 2022",
+      org: "Northeastern University (US)",
+      role: "M.S. · Software Engineering · GPA 4.0/4.0",
+      desc: "",
+      type: "edu",
+    },
+    {
+      date: "Jul – Dec 2023",
+      org: "Wayfair · NYSE: W",
+      role: "Software Engineer Intern",
+      desc: "Led PHP-to-C# microservice migration (3× scalability, 95% error rate reduction). Migrated 13B historical records to GCP PostgreSQL with zero downtime. Optimized peak read QPS to 10k+, P95 latency ↓60%.",
+      type: "work",
+    },
+    {
+      date: "Jun 2024 – Present",
+      org: "Wayfair · NYSE: W",
+      role: "Algorithm Engineer",
+      desc: "Built LLM-powered customer service with MoE + multi-agent architecture (intent recognition ↑24%, task completion ↑32%). Developed AI Coding Agent automating Jira → GitHub PR (migration time 3–4 days → <1 day). Collaborated with Google Gemini team on Agentic Commerce, driving 10,000+ new orders/month.",
+      type: "work",
+    },
+    {
+      date: "Open Source",
+      org: "xiaohongshu-mcp",
+      role: "Contributor · 11,000+ ⭐ · 500+ community users",
+      desc: "Built a Xiaohongshu AI Agent for fully automated social media operations.",
+      type: "open",
+    },
+  ],
+  zh: [
+    {
+      date: "2018.09",
+      org: "中山大学",
+      role: "本科 · 软件工程 · GPA 3.8/4.0",
+      desc: "",
+      type: "edu",
+    },
+    {
+      date: "2021.03 – 2021.06",
+      org: "字节跳动 · 今日头条",
+      role: "客户端研发工程师（实习）",
+      desc: "为今日头条 iOS 客户端开发视频页功能，服务超 1.6 亿日活用户。独立负责【热点卡片】模块的设计与开发，按期高质量上线。",
+      type: "work",
+    },
+    {
+      date: "2022.09",
+      org: "美国东北大学",
+      role: "硕士 · 软件工程 · GPA 4.0/4.0",
+      desc: "",
+      type: "edu",
+    },
+    {
+      date: "2023.07 – 2023.12",
+      org: "Wayfair · NYSE: W",
+      role: "软件研发工程师（实习）",
+      desc: "主导 PHP → C# 微服务迁移，系统可扩展性提升 3 倍，事件失败率降低 95%。将 130 亿条历史记录迁移至 GCP PostgreSQL，零宕机。优化峰值读 QPS 至 10k+，P95 响应时间降低 60%。",
+      type: "work",
+    },
+    {
+      date: "2024.06 – 至今",
+      org: "Wayfair · NYSE: W",
+      role: "算法工程师",
+      desc: "构建基于 MoE + 多 Agent 架构的 LLM 智能客服，意图识别率 ↑24%，任务完成度 ↑32%。开发 AI Coding Agent 实现 Jira → GitHub PR 全自动化，迁移周期从 3–4 天压缩至 1 天内。与 Google Gemini 团队合作落地 Agentic Commerce，每月新增订单超 10,000 单。",
+      type: "work",
+    },
+    {
+      date: "开源项目",
+      org: "xiaohongshu-mcp",
+      role: "贡献者 · 11,000+ ⭐ · 社区用户超 500 人",
+      desc: "构建小红书 AI Agent，实现社交媒体账号的全自动化运营。",
+      type: "open",
+    },
+  ],
+};
+
 function GitHubIcon() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6" aria-hidden="true">
@@ -173,21 +272,21 @@ export default function HomePage() {
   const projectList = projects[lang];
 
   return (
-    <div className="min-h-screen" style={{ background: "#0f172a", color: "#e2e8f0" }}>
+    <div className="min-h-screen" style={{ background: "#f8fafc", color: "#0f172a" }}>
       {/* Nav */}
       <nav
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4"
-        style={{ background: "rgba(15,23,42,0.85)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+        style={{ background: "rgba(248,250,252,0.88)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(0,0,0,0.07)" }}
       >
-        <span className="font-mono text-sm" style={{ color: "#22d3ee" }}>allen.dev</span>
+        <span className="font-mono text-sm font-bold" style={{ color: "#0891b2" }}>allen.dev</span>
         <div className="flex items-center gap-5">
-          <div className="flex gap-6 text-sm" style={{ color: "#94a3b8" }}>
-            <a href="#about" className="hover:text-white transition-colors">{t.nav.about}</a>
-            <a href="#skills" className="hover:text-white transition-colors">{t.nav.skills}</a>
-            <a href="#projects" className="hover:text-white transition-colors">{t.nav.projects}</a>
+          <div className="flex gap-6 text-sm" style={{ color: "#64748b" }}>
+            <a href="#timeline" className="hover:text-slate-900 transition-colors">{t.nav.timeline}</a>
+            <a href="#skills" className="hover:text-slate-900 transition-colors">{t.nav.skills}</a>
+            <a href="#projects" className="hover:text-slate-900 transition-colors">{t.nav.projects}</a>
           </div>
-          {/* Language Toggle */}
-          <button
+          {/* Language Toggle — temporarily hidden, English content preserved */}
+          {/* <button
             onClick={() => setLang(lang === "en" ? "zh" : "en")}
             className="text-xs font-mono px-3 py-1.5 rounded-full transition-all hover:scale-105 active:scale-95"
             style={{
@@ -198,23 +297,23 @@ export default function HomePage() {
             }}
           >
             {t.toggleLabel}
-          </button>
+          </button> */}
         </div>
       </nav>
 
       <main>
         {/* ── Hero ── */}
         <section className="flex flex-col items-center justify-center text-center px-6 pt-40 pb-32">
-          <p className="animate-fade-in-up delay-100 mb-4 font-mono text-sm tracking-widest uppercase" style={{ color: "#22d3ee" }}>
+          <p className="animate-fade-in-up delay-100 mb-5 font-mono text-base tracking-widest uppercase" style={{ color: "#0891b2" }}>
             {t.hero.badge}
           </p>
-          <h1 className="animate-fade-in-up delay-200 text-5xl sm:text-7xl font-bold tracking-tight mb-6" style={{ color: "#f1f5f9" }}>
+          <h1 className="animate-fade-in-up delay-200 text-6xl sm:text-8xl font-bold tracking-tight mb-8" style={{ color: "#0f172a" }}>
             {t.hero.greeting}{" "}
-            <span style={{ background: "linear-gradient(135deg, #22d3ee, #818cf8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+            <span style={{ background: "linear-gradient(135deg, #0891b2, #7c3aed)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
               Allen
             </span>
           </h1>
-          <p className="animate-fade-in-up delay-300 max-w-xl text-lg leading-relaxed mb-10" style={{ color: "#94a3b8" }}>
+          <p className="animate-fade-in-up delay-300 max-w-2xl text-xl leading-relaxed mb-10" style={{ color: "#475569" }}>
             {t.hero.slogan}
           </p>
           <div className="animate-fade-in-up delay-400 flex gap-4">
@@ -223,7 +322,7 @@ export default function HomePage() {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all hover:scale-105"
-              style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", color: "#e2e8f0" }}
+              style={{ background: "#0f172a", border: "1px solid #0f172a", color: "#f8fafc" }}
             >
               <GitHubIcon />
               GitHub
@@ -233,7 +332,7 @@ export default function HomePage() {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all hover:scale-105"
-              style={{ background: "rgba(34,211,238,0.12)", border: "1px solid rgba(34,211,238,0.3)", color: "#22d3ee" }}
+              style={{ background: "#0077B5", border: "1px solid #0077B5", color: "#ffffff" }}
             >
               <LinkedInIcon />
               LinkedIn
@@ -241,43 +340,78 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── About ── */}
-        <section id="about" className="max-w-3xl mx-auto px-6 py-20">
-          <h2 className="text-xs font-mono tracking-widest uppercase mb-8" style={{ color: "#22d3ee" }}>
-            {t.about.heading}
+        {/* ── Timeline ── */}
+        <section id="timeline" className="max-w-4xl mx-auto px-8 py-24">
+          <h2 className="text-2xl font-bold mb-12" style={{ color: "#0f172a" }}>
+            {lang === "zh" ? "经历" : "Timeline"}
           </h2>
-          <div className="grid sm:grid-cols-2 gap-8">
-            <p className="text-base leading-relaxed" style={{ color: "#cbd5e1" }}>{t.about.left}</p>
-            <div className="flex flex-col gap-4">
-              {t.about.right.map((para, i) => (
-                <p key={i} className="text-base leading-relaxed" style={{ color: "#cbd5e1" }}>{para}</p>
-              ))}
-            </div>
+          <div className="flex flex-col gap-14">
+            {(
+              lang === "zh"
+                ? [
+                    { label: "工作经历", type: "work", color: "#0891b2" },
+                    { label: "教育背景", type: "edu", color: "#7c3aed" },
+                    { label: "开源项目", type: "open", color: "#059669" },
+                  ]
+                : [
+                    { label: "Experience", type: "work", color: "#0891b2" },
+                    { label: "Education", type: "edu", color: "#7c3aed" },
+                    { label: "Open Source", type: "open", color: "#059669" },
+                  ]
+            ).map((group) => {
+              const items = timeline[lang].filter((item) => item.type === group.type).reverse();
+              return (
+                <div key={group.label}>
+                  <p className="text-base font-semibold tracking-wide mb-6" style={{ color: group.color }}>{group.label}</p>
+                  <div className="relative">
+                    <div className="absolute left-3 top-0 bottom-0 w-px" style={{ background: `linear-gradient(to bottom, ${group.color}44, transparent)` }} />
+                    <div className="flex flex-col gap-7">
+                      {items.map((item, i) => (
+                        <div key={i} className="flex gap-6">
+                          <div className="relative flex-shrink-0 w-6 flex justify-center">
+                            <div className="absolute top-1.5 w-2.5 h-2.5 rounded-full"
+                              style={{ background: group.color, outline: `2px solid ${group.color}`, outlineOffset: "3px" }} />
+                          </div>
+                          <div className="flex-1 pb-2">
+                            <span className="text-sm font-mono mb-1.5 block" style={{ color: group.color }}>{item.date}</span>
+                            <p className="font-bold text-base mb-1" style={{ color: "#0f172a" }}>{item.org}</p>
+                            <p className="text-sm mb-3" style={{ color: "#94a3b8" }}>{item.role}</p>
+                            {item.desc && (
+                              <p className="text-base leading-relaxed" style={{ color: "#475569" }}>{item.desc}</p>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </section>
 
         {/* ── Skills ── */}
-        <section id="skills" className="max-w-3xl mx-auto px-6 py-20">
-          <h2 className="text-xs font-mono tracking-widest uppercase mb-8" style={{ color: "#22d3ee" }}>
+        <section id="skills" className="max-w-4xl mx-auto px-8 py-24">
+          <h2 className="text-2xl font-bold mb-10" style={{ color: "#0f172a" }}>
             {t.skills.heading}
           </h2>
-          <div className="grid sm:grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-5">
             {skillList.map((group) => (
               <div
                 key={group.category}
-                className="rounded-2xl p-5"
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+                className="rounded-2xl p-6"
+                style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}
               >
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="text-xl">{group.icon}</span>
-                  <span className="font-semibold text-sm" style={{ color: "#f1f5f9" }}>{group.category}</span>
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="text-2xl">{group.icon}</span>
+                  <span className="font-semibold text-base" style={{ color: "#0f172a" }}>{group.category}</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {group.items.map((item) => (
                     <span
                       key={item}
-                      className="px-3 py-1 rounded-full text-xs font-mono"
-                      style={{ background: "rgba(129,140,248,0.15)", color: "#a5b4fc", border: "1px solid rgba(129,140,248,0.25)" }}
+                      className="px-3 py-1 rounded-full text-sm font-mono"
+                      style={{ background: "rgba(124,58,237,0.08)", color: "#7c3aed", border: "1px solid rgba(124,58,237,0.2)" }}
                     >
                       {item}
                     </span>
@@ -289,25 +423,25 @@ export default function HomePage() {
         </section>
 
         {/* ── Projects ── */}
-        <section id="projects" className="max-w-3xl mx-auto px-6 py-20">
-          <h2 className="text-xs font-mono tracking-widest uppercase mb-8" style={{ color: "#22d3ee" }}>
+        <section id="projects" className="max-w-4xl mx-auto px-8 py-24">
+          <h2 className="text-2xl font-bold mb-10" style={{ color: "#0f172a" }}>
             {t.projects.heading}
           </h2>
-          <div className="grid sm:grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-5">
             {projectList.map((project) => (
               <div
                 key={project.title}
-                className="rounded-2xl p-5 flex flex-col gap-3 transition-all hover:-translate-y-1"
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+                className="rounded-2xl p-6 flex flex-col gap-4 transition-all hover:-translate-y-1"
+                style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}
               >
-                <h3 className="font-semibold text-sm leading-snug" style={{ color: "#f1f5f9" }}>{project.title}</h3>
-                <p className="text-sm leading-relaxed flex-1" style={{ color: "#94a3b8" }}>{project.description}</p>
-                <div className="flex flex-wrap gap-1.5 pt-1">
+                <h3 className="font-semibold text-base leading-snug" style={{ color: "#0f172a" }}>{project.title}</h3>
+                <p className="text-base leading-relaxed flex-1" style={{ color: "#475569" }}>{project.description}</p>
+                <div className="flex flex-wrap gap-2 pt-1">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-0.5 rounded text-xs font-mono"
-                      style={{ background: "rgba(34,211,238,0.1)", color: "#67e8f9", border: "1px solid rgba(34,211,238,0.2)" }}
+                      className="px-2.5 py-1 rounded text-sm font-mono"
+                      style={{ background: "rgba(8,145,178,0.08)", color: "#0891b2", border: "1px solid rgba(8,145,178,0.2)" }}
                     >
                       {tag}
                     </span>
@@ -320,13 +454,13 @@ export default function HomePage() {
       </main>
 
       {/* ── Footer ── */}
-      <footer className="mt-20 py-10 text-center" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-        <p className="text-sm" style={{ color: "#475569" }}>
+      <footer className="mt-20 py-10 text-center" style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}>
+        <p className="text-sm" style={{ color: "#94a3b8" }}>
           © {new Date().getFullYear()} Allen. {t.footer.built}
         </p>
-        <p className="text-sm mt-1" style={{ color: "#475569" }}>
+        <p className="text-sm mt-1" style={{ color: "#94a3b8" }}>
           {t.footer.reach}{" "}
-          <a href="mailto:allen@example.com" className="hover:text-cyan-400 transition-colors" style={{ color: "#64748b" }}>
+          <a href="mailto:allen@example.com" className="transition-colors hover:text-cyan-600" style={{ color: "#0891b2" }}>
             allen@example.com
           </a>
         </p>
