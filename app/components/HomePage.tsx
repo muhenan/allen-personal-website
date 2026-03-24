@@ -387,7 +387,7 @@ function ChatSection() {
           </button>
         </div>
         <div className="flex flex-wrap gap-2">
-          {["Allen 中文名字叫什么，是什么学校毕业的", "他在 Wayfair 做了哪些 AI 项目？", "他参与了哪个开源项目？"].map((q) => (
+          {["Allen 中文名字叫什么，是什么学校毕业的",  "他参与了哪个开源项目？" , "你是由谁开发的？底层用了什么模型"].map((q) => (
             <button
               key={q}
               onClick={() => { setInput(q); }}
@@ -413,16 +413,29 @@ function ChatSection() {
           </div>
         )}
         {reply && (
-          <div
-            className="rounded-xl px-5 py-4 text-base font-medium leading-relaxed"
-            style={{
-              background: "#f8fafc",
-              border: "1px solid rgba(15,23,42,0.08)",
-              color: "#000000",
-            }}
-          >
-            {reply}
-          </div>
+          <>
+            <div
+              className="rounded-xl px-5 py-4 text-base font-medium leading-relaxed"
+              style={{
+                background: "#f8fafc",
+                border: "1px solid rgba(15,23,42,0.08)",
+                color: "#000000",
+              }}
+            >
+              {reply}
+            </div>
+            <button
+              onClick={() => { setReply(""); setInput(""); setError(""); }}
+              className="self-start rounded-full px-4 py-1.5 text-sm font-medium transition-all hover:scale-105"
+              style={{
+                background: "#f1f5f9",
+                border: "1px solid rgba(15,23,42,0.1)",
+                color: "#64748b",
+              }}
+            >
+              清除
+            </button>
+          </>
         )}
         {error && (
           <p className="text-sm font-medium" style={{ color: "#dc2626" }}>{error}</p>
