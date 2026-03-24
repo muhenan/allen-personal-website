@@ -82,7 +82,7 @@ export async function POST(req: NextRequest) {
       { role: "user", content: message },
     ],
     stream: true,
-    max_tokens: 500,
+    ...(model === "deepseek" ? { max_tokens: 500 } : { max_completion_tokens: 500 }),
   });
 
   const encoder = new TextEncoder();
