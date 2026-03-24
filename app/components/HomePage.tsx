@@ -386,6 +386,22 @@ function ChatSection() {
             发送
           </button>
         </div>
+        <div className="flex flex-wrap gap-2">
+          {["Allen 中文名字叫什么，是什么学校毕业的", "他在 Wayfair 做了哪些 AI 项目？", "他参与了哪个开源项目？"].map((q) => (
+            <button
+              key={q}
+              onClick={() => { setInput(q); }}
+              className="rounded-full px-3 py-1.5 text-sm font-medium transition-all hover:scale-105"
+              style={{
+                background: "#f1f5f9",
+                border: "1px solid rgba(15,23,42,0.1)",
+                color: "#475569",
+              }}
+            >
+              {q}
+            </button>
+          ))}
+        </div>
         {loading && !reply && (
           <div className="flex items-center gap-2" style={{ color: "#64748b" }}>
             <span className="flex gap-1">
