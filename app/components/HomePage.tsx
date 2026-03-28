@@ -598,44 +598,65 @@ export default function HomePage({ posts = [] }: { posts?: PostMeta[] }) {
         {posts.length > 0 && (
           <section id="blog" className="max-w-4xl mx-auto px-8 py-12">
             <SectionHeading label="BLOG" heading="博客" />
-            <div className="flex flex-col gap-4">
-              {posts.map((post) => (
+            <div
+              className="rounded-[2rem] p-7 sm:p-8"
+              style={{
+                background: "#ffffff",
+                border: "1px solid rgba(15,23,42,0.1)",
+                boxShadow: "0 16px 32px rgba(15,23,42,0.04)",
+              }}
+            >
+              <div className="flex flex-col gap-3">
+                {posts.slice(0, 3).map((post) => (
+                  <Link
+                    key={post.slug}
+                    href={`/post/${post.slug}`}
+                    className="group block rounded-xl px-5 py-4 transition-all hover:scale-[1.01]"
+                    style={{
+                      background: "#f8fafc",
+                      border: "1px solid rgba(15,23,42,0.07)",
+                    }}
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1 min-w-0">
+                        <h3
+                          className="text-base font-bold mb-1 truncate group-hover:text-blue-700 transition-colors"
+                          style={{ color: "#0f172a" }}
+                        >
+                          {post.title}
+                        </h3>
+                        {post.description && (
+                          <p
+                            className="text-sm font-medium leading-relaxed line-clamp-1"
+                            style={{ color: "#475569" }}
+                          >
+                            {post.description}
+                          </p>
+                        )}
+                      </div>
+                      <time
+                        className="flex-shrink-0 text-xs font-mono font-medium"
+                        style={{ color: "#94a3b8" }}
+                      >
+                        {post.date}
+                      </time>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-5 flex justify-center">
                 <Link
-                  key={post.slug}
-                  href={`/post/${post.slug}`}
-                  className="group block rounded-2xl px-7 py-5 transition-all hover:scale-[1.01] hover:shadow-lg"
+                  href="/posts"
+                  className="rounded-full px-6 py-2 text-sm font-semibold transition-all hover:scale-105 inline-block"
                   style={{
-                    background: "#ffffff",
-                    border: "1px solid rgba(15,23,42,0.08)",
-                    boxShadow: "0 4px 16px rgba(15,23,42,0.04)",
+                    background: "#f1f5f9",
+                    border: "1px solid rgba(15,23,42,0.1)",
+                    color: "#475569",
                   }}
                 >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1 min-w-0">
-                      <h3
-                        className="text-lg font-bold mb-1 truncate group-hover:text-blue-700 transition-colors"
-                        style={{ color: "#0f172a" }}
-                      >
-                        {post.title}
-                      </h3>
-                      {post.description && (
-                        <p
-                          className="text-sm font-medium leading-relaxed line-clamp-2"
-                          style={{ color: "#475569" }}
-                        >
-                          {post.description}
-                        </p>
-                      )}
-                    </div>
-                    <time
-                      className="flex-shrink-0 text-xs font-mono font-medium"
-                      style={{ color: "#94a3b8" }}
-                    >
-                      {post.date}
-                    </time>
-                  </div>
+                  查看更多
                 </Link>
-              ))}
+              </div>
             </div>
           </section>
         )}
