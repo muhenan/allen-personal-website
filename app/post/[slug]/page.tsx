@@ -3,9 +3,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
 import rehypeHighlight from "rehype-highlight";
+import rehypeKatex from "rehype-katex";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/posts";
 import "highlight.js/styles/github-dark.css";
+import "katex/dist/katex.min.css";
 
 export function generateStaticParams() {
   return getAllPostSlugs().map((slug) => ({ slug }));
@@ -55,8 +58,8 @@ export default async function PostPage({
 
       <article className="prose">
         <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeHighlight]}
+          remarkPlugins={[remarkGfm, remarkMath]}
+          rehypePlugins={[rehypeHighlight, rehypeKatex]}
         >
           {content}
         </ReactMarkdown>

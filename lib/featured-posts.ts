@@ -3,4 +3,5 @@
 export const FEATURED_SLUGS = [
   "claude-code-pm-interview",
   "xiaohongshu-mcp",
+  "zero-vs-fsdp",
 ];
