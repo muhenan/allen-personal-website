@@ -1,12 +1,20 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 
 type Lang = "en" | "zh";
 
+type PostMeta = {
+  slug: string;
+  title: string;
+  date: string;
+  description?: string;
+};
+
 const content = {
   en: {
-    nav: { about: "About", timeline: "Timeline", openSource: "Open Source", chat: "Chat" },
+    nav: { about: "About", blog: "Blog", timeline: "Timeline", openSource: "Open Source", chat: "Chat" },
     timeline: { label: "EXPERIENCE", heading: "Timeline" },
     hero: {
       badge: "Algorithm Engineer",
@@ -42,7 +50,7 @@ const content = {
     toggleLabel: "中文",
   },
   zh: {
-    nav: { about: "关于我", timeline: "经历", openSource: "开源", chat: "AI 对话" },
+    nav: { about: "关于我", blog: "博客", timeline: "经历", openSource: "开源", chat: "AI 对话" },
     timeline: { label: "EXPERIENCE", heading: "经历" },
     hero: {
       badge: "算法工程师",
@@ -445,7 +453,7 @@ function ChatSection() {
   );
 }
 
-export default function HomePage() {
+export default function HomePage({ posts = [] }: { posts?: PostMeta[] }) {
   const lang: Lang = "zh";
   const t = content[lang];
   const openSourceList = openSource[lang];
@@ -498,6 +506,7 @@ export default function HomePage() {
         <div className="flex items-center gap-5">
           <div className="flex gap-6 text-sm font-medium" style={{ color: "#000000" }}>
             <a href="#chat" className="hover:text-slate-900 transition-colors">{t.nav.chat}</a>
+            <a href="#blog" className="hover:text-slate-900 transition-colors">{t.nav.blog}</a>
             <a href="#timeline" className="hover:text-slate-900 transition-colors">{t.nav.timeline}</a>
             <a href="#open-source" className="hover:text-slate-900 transition-colors">{t.nav.openSource}</a>
           </div>
@@ -584,6 +593,52 @@ export default function HomePage() {
 
         {/* ── Chatbot ── */}
         <ChatSection />
+
+        {/* ── Blog ── */}
+        {posts.length > 0 && (
+          <section id="blog" className="max-w-4xl mx-auto px-8 py-12">
+            <SectionHeading label="BLOG" heading="博客" />
+            <div className="flex flex-col gap-4">
+              {posts.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/post/${post.slug}`}
+                  className="group block rounded-2xl px-7 py-5 transition-all hover:scale-[1.01] hover:shadow-lg"
+                  style={{
+                    background: "#ffffff",
+                    border: "1px solid rgba(15,23,42,0.08)",
+                    boxShadow: "0 4px 16px rgba(15,23,42,0.04)",
+                  }}
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <h3
+                        className="text-lg font-bold mb-1 truncate group-hover:text-blue-700 transition-colors"
+                        style={{ color: "#0f172a" }}
+                      >
+                        {post.title}
+                      </h3>
+                      {post.description && (
+                        <p
+                          className="text-sm font-medium leading-relaxed line-clamp-2"
+                          style={{ color: "#475569" }}
+                        >
+                          {post.description}
+                        </p>
+                      )}
+                    </div>
+                    <time
+                      className="flex-shrink-0 text-xs font-mono font-medium"
+                      style={{ color: "#94a3b8" }}
+                    >
+                      {post.date}
+                    </time>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* ── Timeline ── */}
         <section id="timeline" className="max-w-4xl mx-auto px-8 py-12">
