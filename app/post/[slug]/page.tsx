@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
@@ -60,6 +61,15 @@ export default async function PostPage({
           {content}
         </ReactMarkdown>
       </article>
+
+      <div className="mt-10">
+        <Link
+          href="/"
+          className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
+        >
+          ← 返回主页
+        </Link>
+      </div>
     </main>
   );
 }
