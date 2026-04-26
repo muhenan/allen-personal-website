@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
+import Link from "next/link";
 import ContribHeatmap from "./github/ContribHeatmap";
 
 interface GitHubData {
@@ -24,11 +25,29 @@ function timeAgo(iso: string) {
   return `${Math.floor(days / 365)}y ago`;
 }
 
+const CACHE_KEY = "github_section_cache";
+let _mem: GitHubData | null = null;
+
 export default function GitHubSection() {
   const [data, setData] = useState<GitHubData | null>(null);
 
+  useLayoutEffect(() => {
+    if (_mem) { setData(_mem); return; }
+    try {
+      const stored = sessionStorage.getItem(CACHE_KEY);
+      if (stored) { _mem = JSON.parse(stored); setData(_mem); }
+    } catch {}
+  }, []);
+
   useEffect(() => {
-    fetch("/api/github").then(r => r.json()).then(d => { if (!d.error) setData(d); }).catch(() => {});
+    if (_mem) return;
+    fetch("/api/github").then(r => r.json()).then(d => {
+      if (!d.error) {
+        _mem = d;
+        try { sessionStorage.setItem(CACHE_KEY, JSON.stringify(d)); } catch {}
+        setData(d);
+      }
+    }).catch(() => {});
   }, []);
 
   return (
@@ -45,10 +64,10 @@ export default function GitHubSection() {
             </div>
             <p style={{ margin: 0, color: "#64748b", fontSize: 15 }}>Open source activity and projects</p>
           </div>
-          <a href="/github" style={{
+          <Link href="/github" style={{
             padding: "8px 18px", borderRadius: 8, fontSize: 13, fontWeight: 600,
             background: "linear-gradient(135deg, #164e63, #4c1d95)", color: "white", textDecoration: "none",
-          }}>View all →</a>
+          }}>View all →</Link>
         </div>
 
         {!data && (
