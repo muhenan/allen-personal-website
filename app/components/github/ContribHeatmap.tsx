@@ -60,13 +60,13 @@ export default function ContribHeatmap({ heatmap }: { heatmap: Record<string, nu
         <span style={{ fontSize: 13, color: "#64748b" }}>{totalContribs} contributions</span>
       </div>
 
-      <div style={{ overflowX: "auto" }}>
+      <div>
         {/* Month labels row */}
-        <div style={{ display: "flex", gap: 3, marginLeft: 24, marginBottom: 4 }}>
+        <div style={{ display: "flex", gap: 2, marginLeft: 28, marginBottom: 4 }}>
           {weeks.map((_, wi) => {
             const label = monthLabels.find(m => m.weekIndex === wi);
             return (
-              <div key={wi} style={{ width: 13, fontSize: 10, color: "#94a3b8", flexShrink: 0 }}>
+              <div key={wi} style={{ flex: 1, fontSize: 10, color: "#94a3b8", minWidth: 0 }}>
                 {label ? label.label : ""}
               </div>
             );
@@ -74,30 +74,32 @@ export default function ContribHeatmap({ heatmap }: { heatmap: Record<string, nu
         </div>
 
         {/* Grid */}
-        <div style={{ display: "flex", gap: 3 }}>
+        <div style={{ display: "flex", gap: 2, alignItems: "flex-start" }}>
           {/* Day labels */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 3, marginRight: 4 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 2, width: 24, flexShrink: 0 }}>
             {dayLabels.map((d, i) => (
-              <span key={i} style={{ fontSize: 10, color: "#94a3b8", height: 13, lineHeight: "13px" }}>{d}</span>
+              <span key={i} style={{ height: 12, fontSize: 10, color: "#94a3b8", lineHeight: "12px", display: "block" }}>{d}</span>
             ))}
           </div>
           {/* Weeks */}
-          {weeks.map((week, wi) => (
-            <div key={wi} style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-              {Array(7).fill(null).map((_, di) => {
-                const cell = week[di] ?? null;
-                return (
-                  <div key={di}
-                    title={cell ? `${cell.date}: ${cell.count} contributions` : ""}
-                    style={{
-                      width: 13, height: 13, borderRadius: 3,
-                      background: cell ? getColor(cell.count) : "transparent",
-                    }}
-                  />
-                );
-              })}
-            </div>
-          ))}
+          <div style={{ flex: 1, display: "flex", gap: 2 }}>
+            {weeks.map((week, wi) => (
+              <div key={wi} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}>
+                {Array(7).fill(null).map((_, di) => {
+                  const cell = week[di] ?? null;
+                  return (
+                    <div key={di}
+                      title={cell ? `${cell.date}: ${cell.count} contributions` : ""}
+                      style={{
+                        width: "100%", height: 12, borderRadius: 2,
+                        background: cell ? getColor(cell.count) : "transparent",
+                      }}
+                    />
+                  );
+                })}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -105,7 +107,7 @@ export default function ContribHeatmap({ heatmap }: { heatmap: Record<string, nu
       <div style={{ display: "flex", alignItems: "center", gap: 4, marginTop: 12, justifyContent: "flex-end" }}>
         <span style={{ fontSize: 11, color: "#94a3b8" }}>Less</span>
         {["#eef2f7", "#bae6fd", "#38bdf8", "#0ea5e9", "#164e63"].map(c => (
-          <div key={c} style={{ width: 13, height: 13, borderRadius: 3, background: c }} />
+          <div key={c} style={{ width: 12, height: 12, borderRadius: 2, background: c }} />
         ))}
         <span style={{ fontSize: 11, color: "#94a3b8" }}>More</span>
       </div>
