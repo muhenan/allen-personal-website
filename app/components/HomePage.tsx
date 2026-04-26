@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import GitHubSection from "./GitHubSection";
+import CodingStatsSection from "./CodingStatsSection";
 
 type Lang = "en" | "zh";
 
@@ -794,6 +795,9 @@ export default function HomePage({ posts = [] }: { posts?: PostMeta[] }) {
 
       {/* ── GitHub Section ── */}
       <GitHubSection />
+
+      {/* ── Coding Stats Section (hidden until WakaTime has data) ── */}
+      {/* <CodingStatsSection /> */}
 
       {/* ── Footer ── */}
       <footer className="py-10 text-center" style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}>
