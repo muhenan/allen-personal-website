@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import GitHubSection from "./GitHubSection";
 
 type Lang = "en" | "zh";
 
@@ -14,7 +15,7 @@ type PostMeta = {
 
 const content = {
   en: {
-    nav: { about: "About", blog: "Blog", timeline: "Timeline", openSource: "Open Source", chat: "Chat" },
+    nav: { about: "About", blog: "Blog", timeline: "Timeline", openSource: "Open Source", chat: "Chat", github: "GitHub" },
     timeline: { label: "EXPERIENCE", heading: "Timeline" },
     hero: {
       badge: "Algorithm Engineer",
@@ -50,7 +51,7 @@ const content = {
     toggleLabel: "中文",
   },
   zh: {
-    nav: { about: "关于我", blog: "博客", timeline: "经历", openSource: "开源", chat: "AI 对话" },
+    nav: { about: "关于我", blog: "博客", timeline: "经历", openSource: "开源", chat: "AI 对话", github: "GitHub" },
     timeline: { label: "EXPERIENCE", heading: "经历" },
     hero: {
       badge: "算法工程师",
@@ -509,6 +510,7 @@ export default function HomePage({ posts = [] }: { posts?: PostMeta[] }) {
             <a href="#blog" className="hover:text-slate-900 transition-colors">{t.nav.blog}</a>
             <a href="#timeline" className="hover:text-slate-900 transition-colors">{t.nav.timeline}</a>
             <a href="#open-source" className="hover:text-slate-900 transition-colors">{t.nav.openSource}</a>
+            <a href="/github" className="hover:text-slate-900 transition-colors">{t.nav.github}</a>
           </div>
           {/* Language Toggle — temporarily hidden, English content preserved */}
           {/* <button
@@ -790,8 +792,11 @@ export default function HomePage({ posts = [] }: { posts?: PostMeta[] }) {
         </section>
       </main>
 
+      {/* ── GitHub Section ── */}
+      <GitHubSection />
+
       {/* ── Footer ── */}
-      <footer className="mt-20 py-10 text-center" style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}>
+      <footer className="py-10 text-center" style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}>
         <p className="text-sm" style={{ color: "#000000" }}>
           © {new Date().getFullYear()} Allen. {t.footer.built}
         </p>
