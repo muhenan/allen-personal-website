@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ContribHeatmap from "./github/ContribHeatmap";
 
 interface GitHubData {
   user: { login: string; name: string; avatar: string; bio: string; publicRepos: number; followers: number; following: number; createdAt: string; url: string };
@@ -29,54 +30,6 @@ export default function GitHubSection() {
   useEffect(() => {
     fetch("/api/github").then(r => r.json()).then(d => { if (!d.error) setData(d); }).catch(() => {});
   }, []);
-
-  // Heatmap: last year (52 weeks)
-  function MiniHeatmap() {
-    if (!data) return null;
-    const today = new Date();
-    const days: { date: string; count: number }[] = [];
-    for (let i = 370; i >= 0; i--) {
-      const d = new Date(today);
-      d.setDate(d.getDate() - i);
-      const key = d.toISOString().slice(0, 10);
-      days.push({ date: key, count: data.heatmap[key] || 0 });
-    }
-    const max = Math.max(...days.map(d => d.count), 1);
-    const firstDay = new Date(days[0].date).getDay();
-    const padded = [...Array(firstDay).fill(null), ...days] as (typeof days[0] | null)[];
-    const weeks: (typeof days[0] | null)[][] = [];
-    for (let i = 0; i < padded.length; i += 7) weeks.push(padded.slice(i, i + 7));
-
-    function getColor(count: number) {
-      if (count === 0) return "#eef2f7";
-      const intensity = count / max;
-      if (intensity < 0.25) return "#bae6fd";
-      if (intensity < 0.5) return "#38bdf8";
-      if (intensity < 0.75) return "#0ea5e9";
-      return "#164e63";
-    }
-
-    return (
-      <div style={{ overflowX: "auto" }}>
-        <div style={{ display: "flex", gap: 3 }}>
-          {weeks.map((week, wi) => (
-            <div key={wi} style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-              {Array(7).fill(null).map((_, di) => {
-                const cell = week[di] ?? null;
-                return (
-                  <div key={di} title={cell ? `${cell.date}: ${cell.count}` : ""}
-                    style={{
-                      width: 11, height: 11, borderRadius: 2,
-                      background: cell ? getColor(cell.count) : "transparent",
-                    }} />
-                );
-              })}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
 
   return (
     <section style={{ padding: "64px 0", background: "#f1f5f9" }}>
@@ -137,25 +90,8 @@ export default function GitHubSection() {
               }}>View on GitHub</a>
             </div>
 
-            {/* Heatmap + Languages */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 16, alignItems: "start" }}>
-              <div style={{ background: "white", borderRadius: 12, padding: 20, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
-                <p style={{ margin: "0 0 12px", fontSize: 12, color: "#64748b", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>Last year</p>
-                <MiniHeatmap />
-              </div>
-              <div style={{ background: "white", borderRadius: 12, padding: 20, boxShadow: "0 1px 3px rgba(0,0,0,0.06)", minWidth: 160 }}>
-                <p style={{ margin: "0 0 12px", fontSize: 12, color: "#64748b", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>Top Languages</p>
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  {data.languages.slice(0, 5).map(({ name, count }) => (
-                    <div key={name} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                      <span style={{ width: 10, height: 10, borderRadius: "50%", background: LANG_COLORS[name] || "#64748b", flexShrink: 0 }} />
-                      <span style={{ fontSize: 13, color: "#475569", flex: 1 }}>{name}</span>
-                      <span style={{ fontSize: 12, color: "#94a3b8" }}>{count}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            {/* Heatmap */}
+            <ContribHeatmap heatmap={data.heatmap} />
 
             {/* Top repos */}
             <div style={{ background: "white", borderRadius: 12, padding: 20, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>

@@ -10,14 +10,25 @@ export default function PostsPage() {
   });
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-16">
-      <header className="mb-10">
-        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-400">
-          BLOG
-        </p>
-        <h1 className="text-4xl font-bold tracking-tight text-slate-900">博客</h1>
-      </header>
+    <div style={{ background: "#f8fafc", minHeight: "100vh" }}>
+      <div style={{ background: "linear-gradient(135deg, #164e63, #4c1d95)", padding: "48px 0 40px" }}>
+        <div style={{ maxWidth: 768, margin: "0 auto", padding: "0 24px" }}>
+          <a href="/" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none", fontSize: 14, display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 20 }}>
+            ← back to muhenan.com
+          </a>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+            <h1 style={{ margin: 0, fontSize: 28, fontWeight: 800, color: "white" }}>Blog</h1>
+          </div>
+          <p style={{ margin: "8px 0 0", color: "rgba(255,255,255,0.7)", fontSize: 15 }}>
+            Thoughts on LLM, AI infrastructure, and engineering
+          </p>
+        </div>
+      </div>
 
+      <main style={{ maxWidth: 768, margin: "0 auto", padding: "32px 24px 64px" }}>
       <div className="flex flex-col gap-4">
         {posts.map((post) => (
           <Link
@@ -52,14 +63,7 @@ export default function PostsPage() {
         ))}
       </div>
 
-      <div className="mt-10">
-        <Link
-          href="/"
-          className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
-        >
-          ← 返回主页
-        </Link>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }
