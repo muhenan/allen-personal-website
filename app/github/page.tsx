@@ -6,6 +6,7 @@ import ProfileCard from "../components/github/ProfileCard";
 import LangChart from "../components/github/LangChart";
 import ContribHeatmap from "../components/github/ContribHeatmap";
 import RepoCards from "../components/github/RepoCards";
+import FeaturedContributions from "../components/github/FeaturedContributions";
 import ActiveTimeChart from "../components/github/ActiveTimeChart";
 import ActivityFeed from "../components/github/ActivityFeed";
 
@@ -18,6 +19,10 @@ interface GitHubData {
   topRepos: {
     name: string; description: string; url: string;
     stars: number; forks: number; language: string; pushedAt: string; topics: string[];
+  }[];
+  featuredContributions: {
+    name: string; description: string; url: string;
+    stars: number; forks: number; language: string; topics: string[]; prCount: number;
   }[];
   heatmap: Record<string, number>;
   activeHours: { hour: number; count: number }[];
@@ -88,6 +93,9 @@ export default function GitHubPage() {
               <LangChart languages={data.languages} />
               <ActiveTimeChart activeHours={data.activeHours} activeDays={data.activeDays} />
             </div>
+
+            {/* Featured Contributions */}
+            <FeaturedContributions contributions={data.featuredContributions} />
 
             {/* Repos */}
             <RepoCards repos={data.topRepos} />

@@ -26,12 +26,41 @@ async function fetchContributions() {
 
 export async function GET() {
   try {
-    const [user, repos, events, heatmap] = await Promise.all([
+    const [user, repos, events, heatmap, mergedPRs] = await Promise.all([
       ghFetch(`/users/${USERNAME}`),
       ghFetch(`/users/${USERNAME}/repos?per_page=100&sort=pushed`),
       ghFetch(`/users/${USERNAME}/events?per_page=100`),
       fetchContributions(),
+      ghFetch(`/search/issues?q=author:${USERNAME}+type:pr+is:merged+-user:${USERNAME}&per_page=100`),
     ]);
+
+    // Featured contributions — repos where user has merged PRs
+    const contribRepoSlugs = [...new Set(
+      (mergedPRs.items ?? []).map((pr: { repository_url: string }) =>
+        pr.repository_url.replace("https://api.github.com/repos/", "")
+      )
+    )] as string[];
+    const contribRepoDetails = await Promise.all(
+      contribRepoSlugs.map((slug: string) => ghFetch(`/repos/${slug}`).catch(() => null))
+    );
+    const featuredContributions = contribRepoDetails
+      .filter(Boolean)
+      .map((r: {
+        full_name: string; description: string; html_url: string;
+        stargazers_count: number; forks_count: number; language: string; topics: string[];
+      }) => ({
+        name: r.full_name,
+        description: r.description,
+        url: r.html_url,
+        stars: r.stargazers_count,
+        forks: r.forks_count,
+        language: r.language,
+        topics: r.topics,
+        prCount: (mergedPRs.items ?? []).filter(
+          (pr: { repository_url: string }) => pr.repository_url.endsWith(`/${r.full_name}`)
+        ).length,
+      }))
+      .sort((a: { stars: number }, b: { stars: number }) => b.stars - a.stars);
 
     // Language distribution
     const langMap: Record<string, number> = {};
@@ -121,6 +150,7 @@ export async function GET() {
       },
       languages,
       topRepos,
+      featuredContributions,
       heatmap,
       activeHours,
       activeDays,
