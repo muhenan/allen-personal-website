@@ -10,12 +10,27 @@ async function ghFetch(path: string) {
   return res.json();
 }
 
+async function fetchContributions() {
+  const res = await fetch(
+    `https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=last`,
+    { next: { revalidate: 3600 } }
+  );
+  if (!res.ok) return {};
+  const data = await res.json();
+  const map: Record<string, number> = {};
+  for (const entry of data.contributions ?? []) {
+    if (entry.count > 0) map[entry.date] = entry.count;
+  }
+  return map;
+}
+
 export async function GET() {
   try {
-    const [user, repos, events] = await Promise.all([
+    const [user, repos, events, heatmap] = await Promise.all([
       ghFetch(`/users/${USERNAME}`),
       ghFetch(`/users/${USERNAME}/repos?per_page=100&sort=pushed`),
       ghFetch(`/users/${USERNAME}/events?per_page=100`),
+      fetchContributions(),
     ]);
 
     // Language distribution
@@ -46,15 +61,6 @@ export async function GET() {
         pushedAt: r.pushed_at,
         topics: r.topics,
       }));
-
-    // Contribution heatmap — last 90 days from events
-    const heatmap: Record<string, number> = {};
-    for (const event of events) {
-      if (["PushEvent", "PullRequestEvent", "IssuesEvent", "CreateEvent"].includes(event.type)) {
-        const day = event.created_at.slice(0, 10);
-        heatmap[day] = (heatmap[day] || 0) + 1;
-      }
-    }
 
     // Active hours distribution (0-23)
     const hourCounts = Array(24).fill(0);

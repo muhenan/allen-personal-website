@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 interface GitHubData {
-  user: { publicRepos: number; followers: number; createdAt: string };
+  user: { login: string; name: string; avatar: string; bio: string; publicRepos: number; followers: number; following: number; createdAt: string; url: string };
   languages: { name: string; count: number }[];
   topRepos: { name: string; description: string; url: string; stars: number; forks: number; language: string; pushedAt: string; topics: string[] }[];
   heatmap: Record<string, number>;
@@ -30,40 +30,50 @@ export default function GitHubSection() {
     fetch("/api/github").then(r => r.json()).then(d => { if (!d.error) setData(d); }).catch(() => {});
   }, []);
 
-  // Mini heatmap: last 28 days (4 weeks)
+  // Heatmap: last year (52 weeks)
   function MiniHeatmap() {
     if (!data) return null;
     const today = new Date();
     const days: { date: string; count: number }[] = [];
-    for (let i = 27; i >= 0; i--) {
+    for (let i = 370; i >= 0; i--) {
       const d = new Date(today);
       d.setDate(d.getDate() - i);
       const key = d.toISOString().slice(0, 10);
       days.push({ date: key, count: data.heatmap[key] || 0 });
     }
     const max = Math.max(...days.map(d => d.count), 1);
-    const weeks: typeof days[] = [];
     const firstDay = new Date(days[0].date).getDay();
     const padded = [...Array(firstDay).fill(null), ...days] as (typeof days[0] | null)[];
-    for (let i = 0; i < padded.length; i += 7) weeks.push(padded.slice(i, i + 7) as typeof days);
+    const weeks: (typeof days[0] | null)[][] = [];
+    for (let i = 0; i < padded.length; i += 7) weeks.push(padded.slice(i, i + 7));
+
+    function getColor(count: number) {
+      if (count === 0) return "#eef2f7";
+      const intensity = count / max;
+      if (intensity < 0.25) return "#bae6fd";
+      if (intensity < 0.5) return "#38bdf8";
+      if (intensity < 0.75) return "#0ea5e9";
+      return "#164e63";
+    }
 
     return (
-      <div style={{ display: "flex", gap: 3 }}>
-        {weeks.map((week, wi) => (
-          <div key={wi} style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-            {Array(7).fill(null).map((_, di) => {
-              const cell = week[di] ?? null;
-              const intensity = cell ? cell.count / max : 0;
-              return (
-                <div key={di} title={cell ? `${cell.date}: ${cell.count}` : ""}
-                  style={{
-                    width: 12, height: 12, borderRadius: 2,
-                    background: !cell ? "transparent" : intensity === 0 ? "#e2e8f0" : intensity < 0.33 ? "#bae6fd" : intensity < 0.66 ? "#38bdf8" : "#164e63",
-                  }} />
-              );
-            })}
-          </div>
-        ))}
+      <div style={{ overflowX: "auto" }}>
+        <div style={{ display: "flex", gap: 3 }}>
+          {weeks.map((week, wi) => (
+            <div key={wi} style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+              {Array(7).fill(null).map((_, di) => {
+                const cell = week[di] ?? null;
+                return (
+                  <div key={di} title={cell ? `${cell.date}: ${cell.count}` : ""}
+                    style={{
+                      width: 11, height: 11, borderRadius: 2,
+                      background: cell ? getColor(cell.count) : "transparent",
+                    }} />
+                );
+              })}
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -94,24 +104,43 @@ export default function GitHubSection() {
 
         {data && (
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            {/* Stats row */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
-              {[
-                { label: "Public Repos", value: data.user.publicRepos },
-                { label: "Followers", value: data.user.followers },
-                { label: "On GitHub Since", value: new Date(data.user.createdAt).getFullYear() },
-              ].map(({ label, value }) => (
-                <div key={label} style={{ background: "white", borderRadius: 12, padding: 20, textAlign: "center", boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
-                  <div style={{ fontSize: 28, fontWeight: 800, background: "linear-gradient(135deg, #164e63, #4c1d95)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{value}</div>
-                  <div style={{ fontSize: 11, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.05em", marginTop: 4 }}>{label}</div>
+            {/* Profile Card */}
+            <div style={{
+              background: "white", borderRadius: 16, padding: "24px",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.08)", display: "flex",
+              alignItems: "center", gap: 24, flexWrap: "wrap",
+            }}>
+              <img src={data.user.avatar} alt={data.user.name} style={{ width: 80, height: 80, borderRadius: "50%", border: "3px solid #e2e8f0" }} />
+              <div style={{ flex: 1, minWidth: 200 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
+                  <span style={{ fontSize: 22, fontWeight: 700, color: "#0f172a" }}>{data.user.name}</span>
+                  <span style={{ fontSize: 14, color: "#64748b" }}>@{data.user.login}</span>
                 </div>
-              ))}
+                {data.user.bio && <p style={{ fontSize: 14, color: "#475569", margin: "0 0 12px" }}>{data.user.bio}</p>}
+                <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+                  {[
+                    { label: "Repos", value: data.user.publicRepos },
+                    { label: "Followers", value: data.user.followers },
+                    { label: "Following", value: data.user.following },
+                    { label: "On GitHub since", value: new Date(data.user.createdAt).getFullYear() },
+                  ].map(({ label, value }) => (
+                    <div key={label} style={{ textAlign: "center" }}>
+                      <div style={{ fontSize: 20, fontWeight: 700, background: "linear-gradient(135deg, #164e63, #4c1d95)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{value}</div>
+                      <div style={{ fontSize: 11, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <a href={data.user.url} target="_blank" rel="noopener noreferrer" style={{
+                padding: "8px 18px", borderRadius: 8, fontSize: 13, fontWeight: 600,
+                background: "linear-gradient(135deg, #164e63, #4c1d95)", color: "white", textDecoration: "none",
+              }}>View on GitHub</a>
             </div>
 
             {/* Heatmap + Languages */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 16, alignItems: "start" }}>
               <div style={{ background: "white", borderRadius: 12, padding: 20, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
-                <p style={{ margin: "0 0 12px", fontSize: 12, color: "#64748b", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>Last 28 days</p>
+                <p style={{ margin: "0 0 12px", fontSize: 12, color: "#64748b", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>Last year</p>
                 <MiniHeatmap />
               </div>
               <div style={{ background: "white", borderRadius: 12, padding: 20, boxShadow: "0 1px 3px rgba(0,0,0,0.06)", minWidth: 160 }}>
